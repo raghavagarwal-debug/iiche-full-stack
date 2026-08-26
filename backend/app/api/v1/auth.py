@@ -91,7 +91,7 @@ async def login(
         value=token,
         httponly=True,
         secure=settings.secure_cookies,
-        samesite="lax",
+        samesite="none",
         max_age=settings.session_expire_hours * 3600,
         path="/",
     )
@@ -103,7 +103,7 @@ async def login(
         value=csrf_token,
         httponly=False,  # Frontend needs to read this
         secure=settings.secure_cookies,
-        samesite="lax",
+        samesite="none",
         max_age=settings.session_expire_hours * 3600,
         path="/",
     )
@@ -367,7 +367,7 @@ async def google_login(
             value=token,
             httponly=True,
             secure=settings.secure_cookies,
-            samesite="lax",
+            samesite="none",
             max_age=settings.session_expire_hours * 3600,
             path="/",
         )
@@ -379,7 +379,7 @@ async def google_login(
             value=csrf_token,
             httponly=False,
             secure=settings.secure_cookies,
-            samesite="lax",
+            samesite="none",
             max_age=settings.session_expire_hours * 3600,
             path="/",
         )
@@ -397,7 +397,7 @@ async def google_login(
         value=state,
         httponly=True,
         secure=settings.secure_cookies,
-        samesite="lax",
+        samesite="none",
         max_age=600,  # 10 minutes
         path="/",
     )
@@ -444,7 +444,7 @@ async def google_callback(
         value=token,
         httponly=True,
         secure=settings.secure_cookies,
-        samesite="lax",
+        samesite="none",
         max_age=settings.session_expire_hours * 3600,
         path="/",
     )
@@ -456,7 +456,7 @@ async def google_callback(
         value=csrf_token,
         httponly=False,
         secure=settings.secure_cookies,
-        samesite="lax",
+        samesite="none",
         max_age=settings.session_expire_hours * 3600,
         path="/",
     )
