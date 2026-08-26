@@ -268,6 +268,15 @@ app.include_router(admin.router, prefix="/api/v1")
 
 # --- Infrastructure Endpoints ---
 
+@app.get("/debug/setup_db")
+async def debug_setup_db():
+    try:
+        async with engine.begin() as conn:
+            await conn.run_sync(Base.metadata.create_all)
+            return {"status": "success", "message": "Tables created successfully"}
+    except Exception as e:
+        return {"status": "error", "error": str(e)}
+
 @app.get("/health")
 async def health():
     """
