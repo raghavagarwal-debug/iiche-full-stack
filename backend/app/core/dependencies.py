@@ -124,7 +124,12 @@ def verify_csrf(request: Request) -> None:
     """
     CSRF verification for state-changing endpoints using double-submit cookie pattern.
     Per Section 5B item 4: CSRF protection because we use cookie-based auth.
+    Bypassed if the request is authenticated via Bearer token, as Bearer tokens are immune to CSRF.
     """
+    auth_header = request.headers.get("Authorization")
+    if auth_header and auth_header.startswith("Bearer "):
+        return
+
     csrf_cookie = request.cookies.get("csrf_token")
     csrf_header = request.headers.get("X-CSRF-Token")
 
