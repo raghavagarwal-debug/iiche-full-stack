@@ -228,20 +228,19 @@ app.add_middleware(RequestBodyLimitMiddleware)
 _cors_origins = [
     settings.frontend_url,
 ]
-# In development, also allow common local dev ports
-if "localhost" in settings.frontend_url or "127.0.0.1" in settings.frontend_url:
-    _cors_origins.extend([
-        "http://localhost:5500",
-        "http://localhost:5501",
-        "http://localhost:5173",
-        "http://localhost:3000",
-        "http://localhost:8080",
-        "http://127.0.0.1:5500",
-        "http://127.0.0.1:5501",
-        "http://127.0.0.1:5173",
-        "http://127.0.0.1:3000",
-        "http://127.0.0.1:8080",
-    ])
+# Always allow common local dev ports for frontend developers testing against the live backend
+_cors_origins.extend([
+    "http://localhost:5500",
+    "http://localhost:5501",
+    "http://localhost:5173",
+    "http://localhost:3000",
+    "http://localhost:8080",
+    "http://127.0.0.1:5500",
+    "http://127.0.0.1:5501",
+    "http://127.0.0.1:5173",
+    "http://127.0.0.1:3000",
+    "http://127.0.0.1:8080",
+])
 
 app.add_middleware(
     CORSMiddleware,
