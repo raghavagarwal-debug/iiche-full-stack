@@ -125,8 +125,20 @@ async def logout(
     if session_token:
         await AuthService.logout(db, session_token)
 
-    response.delete_cookie("session_token", path="/")
-    response.delete_cookie("csrf_token", path="/")
+    response.delete_cookie(
+        "session_token",
+        path="/",
+        secure=settings.secure_cookies,
+        httponly=True,
+        samesite="none",
+    )
+    response.delete_cookie(
+        "csrf_token",
+        path="/",
+        secure=settings.secure_cookies,
+        httponly=False,
+        samesite="none",
+    )
 
     return MessageResponse(message="Logged out successfully")
 
