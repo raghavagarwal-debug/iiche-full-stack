@@ -287,7 +287,6 @@
         const user = await window.IIChEAuth.checkAuth();
 
         // Check if URL has ?auth=success or ?error=
-        const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.has('auth') && urlParams.get('auth') === 'success') {
             // Clean URL query string without refresh
             window.history.replaceState({}, document.title, window.location.pathname);
