@@ -39,7 +39,7 @@
                 ...(options.headers || {})
             };
 
-            const csrfToken = getCookie('csrf_token');
+            const csrfToken = getCookie('csrf_token') || localStorage.getItem('csrf_token');
             if (csrfToken && options.method && options.method.toUpperCase() !== 'GET') {
                 headers['X-CSRF-Token'] = csrfToken;
             }
@@ -92,6 +92,10 @@
                 } else {
                     throw new Error('Unable to connect to the backend server. It might be asleep, or there might be a CORS error.');
                 }
+            }
+
+            if (response && response.headers && response.headers.get('X-CSRF-Token')) {
+                localStorage.setItem('csrf_token', response.headers.get('X-CSRF-Token'));
             }
 
             let data;
@@ -182,6 +186,7 @@
                 console.warn('Logout request failed:', e);
             }
             this.currentUser = null;
+            localStorage.removeItem('csrf_token');
             window.location.reload();
         },
 

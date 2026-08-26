@@ -201,6 +201,14 @@ app = FastAPI(
     redoc_url=None if settings.is_production else "/redoc",
 )
 
+@app.middleware("http")
+async def expose_csrf_token(request: Request, call_next):
+    """Expose the CSRF token in a header so cross-domain clients can read it."""
+    response = await call_next(request)
+    csrf_cookie = request.cookies.get("csrf_token")
+    if csrf_cookie:
+        response.headers["X-CSRF-Token"] = csrf_cookie
+    return response
 
 @app.middleware("http")
 async def add_security_headers(request: Request, call_next):
@@ -249,7 +257,7 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
     allow_headers=["Content-Type", "X-CSRF-Token"],
-    expose_headers=["Content-Disposition"],
+    expose_headers=["Content-Disposition", "X-CSRF-Token"],
 )
 
 # Request ID — Per Section 13: structured logs with request IDs
