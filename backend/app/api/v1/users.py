@@ -6,6 +6,7 @@ from fastapi import APIRouter, Depends, Response
 from sqlalchemy import delete
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.core.config import settings
 from app.core.dependencies import get_current_user, get_db, verify_csrf
 from app.models.otp import PasswordResetOTP
 from app.models.registration import Registration
@@ -76,8 +77,20 @@ async def delete_my_account(
     await db.commit()
 
     # Clear authentication cookies
-    response.delete_cookie(key="session_token", path="/")
-    response.delete_cookie(key="csrf_token", path="/")
+    response.delete_cookie(
+        key="session_token",
+        path="/",
+        secure=settings.secure_cookies,
+        httponly=True,
+        samesite="none",
+    )
+    response.delete_cookie(
+        key="csrf_token",
+        path="/",
+        secure=settings.secure_cookies,
+        httponly=False,
+        samesite="none",
+    )
 
     return MessageResponse(message="Your account has been deleted successfully.")
 
