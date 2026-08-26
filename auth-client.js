@@ -13,8 +13,8 @@
             .replace(/'/g, '&#039;');
     }
 
-    let host = (window.location.hostname === '127.0.0.1') ? '127.0.0.1' : 'localhost';
-    let API_BASE = window.IIChE_API_BASE || `http://${host}:8000/api/v1`;
+    // Use the production backend URL on Render
+    let API_BASE = window.IIChE_API_BASE || 'https://iiche-full-stack.onrender.com/api/v1';
 
     // Global auth state object
     window.IIChEAuth = {
