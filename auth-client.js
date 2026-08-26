@@ -87,10 +87,10 @@
                         if (fallbackErr.name === 'AbortError') {
                             throw new Error('Request timed out while waiting for backend server response.');
                         }
-                        throw new Error('Unable to connect to backend server. Please make sure the FastAPI server is running on http://127.0.0.1:8000.');
+                        throw new Error('Unable to connect to the backend server. It might be asleep, or there might be a CORS error.');
                     }
                 } else {
-                    throw new Error('Unable to connect to backend server. Please make sure the FastAPI server is running on http://127.0.0.1:8000.');
+                    throw new Error('Unable to connect to the backend server. It might be asleep, or there might be a CORS error.');
                 }
             }
 
