@@ -97,6 +97,13 @@ class Settings(BaseSettings):
                 raise ValueError("EMAIL_PROVIDER=console is not allowed in production")
             if not self.backend_url.strip().lower().startswith("https://"):
                 raise ValueError("BACKEND_URL must use HTTPS in production")
+
+        # Automatically fix Render's default postgres:// URL to use asyncpg
+        if self.database_url.startswith("postgres://"):
+            self.database_url = self.database_url.replace("postgres://", "postgresql+asyncpg://", 1)
+        elif self.database_url.startswith("postgresql://") and "asyncpg" not in self.database_url:
+            self.database_url = self.database_url.replace("postgresql://", "postgresql+asyncpg://", 1)
+
         return self
 
     @property
