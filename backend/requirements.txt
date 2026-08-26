@@ -1,0 +1,32 @@
+# Core
+fastapi>=0.115.0
+uvicorn[standard]>=0.34.0
+gunicorn>=22.0.0
+python-multipart>=0.0.20
+pydantic-settings>=2.7.0
+pydantic[email]>=2.10.0
+
+# Database
+sqlalchemy[asyncio]>=2.0.36
+asyncpg>=0.30.0
+alembic>=1.14.0
+aiosqlite>=0.20.0
+
+# Security
+argon2-cffi>=23.1.0
+
+# Redis
+redis[hiredis]>=5.2.0
+
+# HTTP client (for Google OAuth)
+httpx>=0.28.0
+
+# Testing
+pytest>=8.3.0
+pytest-asyncio>=0.25.0
+
+# CSV export
+python-dateutil>=2.9.0
+
+# Sync driver for Alembic migrations
+psycopg2-binary>=2.9.0

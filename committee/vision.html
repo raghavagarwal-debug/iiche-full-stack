@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Vision | IIChE Student Chapter, BIT Mesra | Official Website</title>
+    <meta name="description"
+        content="Discover the vision of the IIChE Student Chapter, BIT Mesra. Our mission is to inspire innovation, promote technical excellence, foster leadership, and empower future chemical engineers through learning, collaboration, and professional development.">
+    <meta name="author" content="IIChE Student Chapter, BIT Mesra">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/png" href="../favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="../favicon/favicon.svg" />
+    <link rel="shortcut icon" href="../favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="IIChE" />
+    <link rel="manifest" href="../favicon/site.webmanifest" />
+    <meta name="theme-color" content="#10B981">
+    <script>
+        const origWarn = console.warn;
+        console.warn = function (...args) {
+            if (args[0] && typeof args[0] === 'string' && args[0].includes('cdn.tailwindcss.com')) return;
+            origWarn.apply(console, args);
+        };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+        <!-- High-Speed CDN & Font Preconnects -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://res.cloudinary.com">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://res.cloudinary.com">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #010a08;
+            overflow-x: hidden;
+            color: #f1f5f9;
+        }
+
+        .noise-bg {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.02;
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, #10b981, #06b6d4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Particles */
+        .particle {
+            position: absolute;
+            background: rgba(16, 185, 129, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Zoom-in effect for Advisor cards on hover */
+        .group.relative.backdrop-blur-xl {
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+            position: relative;
+        }
+
+        .group.relative.backdrop-blur-xl:hover {
+            transform: scale(1.03) !important;
+            z-index: 10;
+        }
+
+        /* Liquid Glass Design System */
+        .liquid-glass-nav {
+            background: linear-gradient(180deg, rgba(1, 10, 8, 0.75) 0%, rgba(2, 24, 20, 0.55) 100%);
+            backdrop-filter: blur(28px) saturate(200%);
+            -webkit-backdrop-filter: blur(28px) saturate(200%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow:
+                0 20px 50px 0 rgba(0, 0, 0, 0.6),
+                0 0 30px 0 rgba(16, 185, 129, 0.15),
+                inset 0 1px 1px 0 rgba(255, 255, 255, 0.35);
+        }
+    </style>
+</head>
+
+<body class="selection:bg-emerald-500/30">
+    <!-- Fixed Background Image Layer -->
+    <div class="fixed inset-0 z-0 bg-cover bg-center"
+        style="background-image: linear-gradient(rgba(1, 10, 8, 0.6), rgba(1, 10, 8, 0.75)), url('../assets/hero_bg.webp');">
+    </div>
+    <!-- Backdrop Blur & Overlay Layer matching About/Board Sections -->
+    <div class="fixed inset-0 z-0 bg-[#010a08]/70 backdrop-blur-md"></div>
+
+    <!-- Ambient Background Layers -->
+    <div class="fixed inset-0 noise-bg pointer-events-none z-[1]"></div>
+    <div id="particles-container" class="fixed inset-0 pointer-events-none z-[2]"></div>
+
+    <!-- Ambient Glow Backgrounds -->
+    <div
+        class="fixed top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-emerald-500/5 rounded-full blur-[140px] pointer-events-none z-0">
+    </div>
+    <div
+        class="fixed bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-[500px] h-[500px] bg-cyan-500/5 rounded-full blur-[140px] pointer-events-none z-0">
+    </div>
+
+    <div class="relative z-10 w-full min-h-screen flex flex-col opacity-0">
+        <!-- Navigation Bar -->
+        <nav
+            class="fixed top-8 left-1/2 -translate-x-1/2 w-[90%] max-w-7xl z-50 liquid-glass-nav rounded-2xl transition-all duration-500">
+            <div class="px-4 sm:px-10 h-16 flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <img src="../assets/logo.png" alt="Logo" class="w-10 h-10 object-contain">
+                    <a href="../index.html#hero-section"
+                        class="text-xl font-black tracking-tighter text-gradient">IIChE</a>
+                </div>
+
+                <div class="hidden md:flex items-center gap-12">
+                    <a href="../index.html#hero-section"
+                        class="text-xs font-bold text-slate-300 hover:text-emerald-400 transition-all uppercase tracking-widest">Home</a>
+                    <a href="../pages/committee.html"
+                        class="text-xs font-bold text-emerald-400 transition-all uppercase tracking-widest border-b border-emerald-400 pb-1">Committee</a>
+                    <a href="../pages/departments.html"
+                        class="text-xs font-bold text-slate-300 hover:text-emerald-400 transition-all uppercase tracking-widest">Departments</a>
+                    <a href="../pages/events.html"
+                        class="text-xs font-bold text-slate-300 hover:text-emerald-400 transition-all uppercase tracking-widest">Events</a>
+                    <a href="../index.html#blogs-section"
+                        class="text-xs font-bold text-slate-300 hover:text-emerald-400 transition-all uppercase tracking-widest">Blogs</a>
+                    <a href="../pages/more.html"
+                        class="text-xs font-bold text-slate-300 hover:text-emerald-400 transition-all uppercase tracking-widest">More</a>
+                </div>
+
+                <!-- Mobile Navigation Button (Go Back to Home) -->
+                <div class="md:hidden">
+                    <a href="../index.html"
+                        class="text-xs font-bold text-emerald-400 uppercase tracking-widest flex items-center gap-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                        Back Home
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Vision Content -->
+        <main class="flex-grow max-w-5xl w-full mx-auto px-6 pt-32 pb-16 flex flex-col justify-center">
+
+            <!-- Page Title Section -->
+            <div class="text-center mb-16">
+                <h2 class="text-xs uppercase tracking-[0.2em] text-emerald-400 font-semibold mb-3">Our Foundation</h2>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white">
+                    Our <span class="text-gradient">Vision</span>
+                </h1>
+                <p class="text-slate-400 mt-4 max-w-xl mx-auto text-sm sm:text-base font-light">
+                    Guiding the IIChE BIT Mesra Student Chapter toward pioneering innovations, technical excellence, and
+                    sustainable solutions.
+                </p>
+            </div>
+
+            <!-- Profile Cards Section (Alternating Tabbed Dashboard UI) -->
+            <section class="flex flex-col gap-16 w-full mb-20">
+
+                <!-- 1. HOD Card (Photo Left, Dashboard Right) -->
+                <div
+                    class="group relative backdrop-blur-xl bg-white/[0.01] hover:bg-white/[0.02] border border-white/5 hover:border-emerald-500/25 rounded-[2rem] p-6 sm:p-8 flex flex-col lg:flex-row gap-8 items-center lg:items-start transition-all duration-500">
+                    <!-- Ambient Glow -->
+                    <div
+                        class="absolute -inset-[1px] bg-gradient-to-r from-emerald-500/10 via-transparent to-cyan-500/10 rounded-[2rem] opacity-0 group-hover:opacity-100 blur-sm pointer-events-none transition-all duration-700">
+                    </div>
+
+                    <!-- Left Photo & Links Subpanel -->
+                    <div class="flex flex-col items-center gap-4 shrink-0 z-10">
+                        <div
+                            class="relative w-40 h-40 sm:w-48 sm:h-48 rounded-2xl overflow-hidden border border-white/10 bg-[#010a08]/80 shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex items-center justify-center group-hover:border-emerald-400/40 transition-all duration-500">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-tr from-emerald-500/10 to-cyan-500/5 opacity-40 group-hover:scale-110 transition-transform duration-500">
+                            </div>
+                            <!-- Silhouette Icon Fallback -->
+                            <svg class="w-16 h-16 text-emerald-400/40 group-hover:text-emerald-400/60 transition-colors duration-500"
+                                fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            <!-- Image Tag (uncomment and replace src when photo is available) -->
+                            <img src="https://res.cloudinary.com/dobshyhdz/image/upload/f_auto,q_auto/v1782577628/IMG_1106_qouqst.jpg"
+                                alt="HOD"
+                                class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500"
+                                onload="this.style.opacity='1'">
+                        </div>
+
+                        <!-- Contact Icons -->
+                        <div class="flex items-center gap-3">
+                            <!-- <a href="mailto:gautamsarkhel@bitmesra.ac.in"
+                                class="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-emerald-400 hover:border-emerald-500/30 transition-all"
+                                title="Email Address">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                            </a> -->
+                            <!-- <a href="#"
+                                class="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-emerald-400 hover:border-emerald-500/30 transition-all"
+                                title="LinkedIn Profile">
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                                    <path
+                                        d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                                </svg>
+                            </a> -->
+                            <a href="https://scholar.google.com/citations?user=L0oVRZwAAAAJ&hl=en"
+                                class="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-emerald-400 hover:border-emerald-500/30 transition-all"
+                                title="Google Scholar">
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l12 9.5 7-5.5v5.5h2v-7.1l3-2.4L12 0z" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Right Information Dashboard -->
+                    <div class="flex-grow w-full text-center lg:text-left z-10">
+                        <div class="mb-4">
+                            <h3 class="text-xs uppercase tracking-[0.15em] text-emerald-400 font-semibold mb-1">HOD,
+                                Chemical Engineering</h3>
+                            <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Dr. G.T. Mohanraj</h2>
+                        </div>
+
+                        <!-- Dashboard Tabs -->
+                        <div
+                            class="flex flex-wrap justify-center lg:justify-start gap-2 mb-4 border-b border-white/5 pb-3">
+                            <button onclick="switchTab('hod', 'bio')" id="tab-hod-bio"
+                                class="tab-btn-hod px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 transition-all">Biography</button>
+                            <button onclick="switchTab('hod', 'research')" id="tab-hod-research"
+                                class="tab-btn-hod px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg border border-white/5 hover:border-emerald-500/20 text-slate-400 hover:text-white transition-all">Research</button>
+                            <button onclick="switchTab('hod', 'credentials')" id="tab-hod-credentials"
+                                class="tab-btn-hod px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg border border-white/5 hover:border-emerald-500/20 text-slate-400 hover:text-white transition-all">Credentials</button>
+                        </div>
+
+                        <!-- Tab Content Box -->
+                        <div
+                            class="relative bg-black/30 border border-white/5 rounded-2xl p-5 sm:p-6 text-left min-h-[160px]">
+                            <!-- Tab: Biography -->
+                            <div id="content-hod-bio" class="tab-content-hod space-y-4">
+                                <p class="text-slate-400 text-sm sm:text-base leading-relaxed font-light">
+                                    Dr. G.T. Mohanraj serves as the Head of the Department of Chemical Engineering at
+                                    BIT Mesra. With over 15 years of excellent achievements in educational governance
+                                    and chemical science research, he guides both the faculty and the undergraduate
+                                    research board with distinction.
+                                </p>
+                                <p class="text-slate-400 text-sm sm:text-base leading-relaxed font-light">
+                                    His educational philosophy encourages chemical process systems that prioritize
+                                    sustainability and resource optimization. He plays an active role in coordinating
+                                    institutional grants and scaling department testing labs to align with standard
+                                    international benchmarks.
+                                </p>
+                            </div>
+
+                            <!-- Tab: Research -->
+                            <div id="content-hod-research" class="tab-content-hod hidden space-y-3">
+                                <h4 class="text-white font-bold text-sm uppercase tracking-wide">Key Focus Areas:</h4>
+                                <ul class="list-disc pl-5 text-slate-400 text-sm sm:text-base space-y-1 font-light">
+                                    <li>Polymer Nanocomposites & Functional Blends</li>
+                                    <li>Organic Bistable Device & Organic Electronics</li>
+                                    <li>Development of Smart Materials like Sensors & Actuators</li>
+                                    <li>Biomass-Derived Activated Carbon & Sustainable Materials</li>
+                                </ul>
+                                <p
+                                    class="text-slate-400 text-xs sm:text-sm font-light leading-relaxed pt-2 border-t border-white/5">
+                                    Author of 30+ peer-reviewed papers in high-impact international journals. Actively
+                                    supervises national-level doctoral candidates and research scholars.
+                                </p>
+                            </div>
+
+                            <!-- Tab: Credentials -->
+                            <div id="content-hod-credentials" class="tab-content-hod hidden space-y-3">
+                                <h4 class="text-white font-bold text-sm uppercase tracking-wide">Academic
+                                    Qualifications:</h4>
+                                <ul class="list-disc pl-5 text-slate-400 text-sm sm:text-base space-y-1 font-light">
+                                    <li>Ph.D. in Polymer Technology from IIT Kharagpur</li>
+                                    <li>M.Tech in Polymer Science & Technology from IIT Delhi</li>
+                                    <li>B.Tech in Chemical Engineering from University of Madras</li>
+                                    <li>Post-Doctoral Fellowships (PDF) in Italy, South Korea and France</li>
+                                </ul>
+                                <h4 class="text-white font-bold text-sm uppercase tracking-wide mt-3">Memberships &
+                                    Panels:</h4>
+                                <p class="text-slate-400 text-xs sm:text-sm font-light">
+                                    Senior Advisor to academic curriculum boards, and active consultant for college
+                                    based
+                                    polymer processing labs.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Faculty Advisor Card (Dashboard Left, Photo Right) -->
+                <div
+                    class="group relative backdrop-blur-xl bg-white/[0.01] hover:bg-white/[0.02] border border-white/5 hover:border-cyan-500/25 rounded-[2rem] p-6 sm:p-8 flex flex-col lg:flex-row-reverse gap-8 items-center lg:items-start transition-all duration-500">
+                    <!-- Ambient Glow -->
+                    <div
+                        class="absolute -inset-[1px] bg-gradient-to-r from-cyan-500/10 via-transparent to-emerald-500/10 rounded-[2rem] opacity-0 group-hover:opacity-100 blur-sm pointer-events-none transition-all duration-700">
+                    </div>
+
+                    <!-- Right Photo & Links Subpanel -->
+                    <div class="flex flex-col items-center gap-4 shrink-0 z-10">
+                        <div
+                            class="relative w-40 h-40 sm:w-48 sm:h-48 rounded-2xl overflow-hidden border border-white/10 bg-[#010a08]/80 shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex items-center justify-center group-hover:border-cyan-400/40 transition-all duration-500">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-tr from-cyan-500/10 to-emerald-500/5 opacity-40 group-hover:scale-110 transition-transform duration-500">
+                            </div>
+                            <!-- Silhouette Icon Fallback -->
+                            <svg class="w-16 h-16 text-cyan-400/40 group-hover:text-cyan-400/60 transition-colors duration-500"
+                                fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            <!-- Image Tag (uncomment and replace src when photo is available) -->
+                            <img src="https://res.cloudinary.com/dobshyhdz/image/upload/f_auto,q_auto/v1782578103/abhjit_mondal_sqjtay.jpg"
+                                alt="Faculty Advisor"
+                                class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500"
+                                onload="this.style.opacity='1'">
+                        </div>
+
+                        <!-- Contact Icons -->
+                        <div class="flex items-center gap-3">
+                            <!-- <a href="mailto:ganeshmoorthy@bitmesra.ac.in"
+                                class="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-cyan-400 hover:border-cyan-500/30 transition-all"
+                                title="Email Address">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                            </a> -->
+                            <a href="https://www.linkedin.com/in/dr-abhijit-mondal-46446546/"
+                                class="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-cyan-400 hover:border-cyan-500/30 transition-all"
+                                title="LinkedIn Profile">
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                                    <path
+                                        d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                                </svg>
+                            </a>
+                            <a href="https://scholar.google.com/citations?user=183lX1cAAAAJ&hl=en"
+                                class="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-cyan-400 hover:border-cyan-500/30 transition-all"
+                                title="Google Scholar">
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l12 9.5 7-5.5v5.5h2v-7.1l3-2.4L12 0z" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Left Information Dashboard -->
+                    <div class="flex-grow w-full text-center lg:text-left z-10">
+                        <div class="mb-4">
+                            <h3 class="text-xs uppercase tracking-[0.15em] text-cyan-400 font-semibold mb-1">Faculty
+                                Advisor, IICHE</h3>
+                            <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Dr. Abhijit Mondal</h2>
+                        </div>
+
+                        <!-- Dashboard Tabs -->
+                        <div
+                            class="flex flex-wrap justify-center lg:justify-start gap-2 mb-4 border-b border-white/5 pb-3">
+                            <button onclick="switchTab('advisor', 'bio')" id="tab-advisor-bio"
+                                class="tab-btn-advisor px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg border border-cyan-500/20 bg-cyan-500/10 text-cyan-400 transition-all">Biography</button>
+                            <button onclick="switchTab('advisor', 'research')" id="tab-advisor-research"
+                                class="tab-btn-advisor px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg border border-white/5 hover:border-cyan-500/20 text-slate-400 hover:text-white transition-all">Research</button>
+                            <button onclick="switchTab('advisor', 'credentials')" id="tab-advisor-credentials"
+                                class="tab-btn-advisor px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg border border-white/5 hover:border-cyan-500/20 text-slate-400 hover:text-white transition-all">Credentials</button>
+                        </div>
+
+                        <!-- Tab Content Box -->
+                        <div
+                            class="relative bg-black/30 border border-white/5 rounded-2xl p-5 sm:p-6 text-left min-h-[160px]">
+                            <!-- Tab: Biography -->
+                            <div id="content-advisor-bio" class="tab-content-advisor space-y-4">
+                                <p class="text-slate-400 text-sm sm:text-base leading-relaxed font-light">
+                                    Dr. Abhijit Mondal is a professor in Chemical Engineering and acts as the official
+                                    Faculty Advisor and Coordinator of the IIChE BITM Student Chapter. He plays an
+                                    essential role in coordinating student conferences, industrial webinars, and
+                                    engineering symposia.
+                                </p>
+                                <p class="text-slate-400 text-sm sm:text-base leading-relaxed font-light">
+                                    He is highly committed to student mentoring, assisting our project teams to apply
+                                    thermodynamic principles and process optimizations to solve modern ecological and
+                                    resource challenges.
+                                </p>
+                            </div>
+
+                            <!-- Tab: Research -->
+                            <div id="content-advisor-research" class="tab-content-advisor hidden space-y-3">
+                                <h4 class="text-white font-bold text-sm uppercase tracking-wide">Key Focus Areas:</h4>
+                                <ul class="list-disc pl-5 text-slate-400 text-sm sm:text-base space-y-1 font-light">
+                                    <li>Environmental & Bio-Process Engineering</li>
+                                    <li>Process Intensification & Mass Transfer</li>
+                                    <li>Environmental Polymer Degradation & Green Composites</li>
+                                    <li>Bioremediation & Wastewater Engineering</li>
+                                </ul>
+                                <p
+                                    class="text-slate-400 text-xs sm:text-sm font-light leading-relaxed pt-2 border-t border-white/5">
+                                    Recognized globally with multiple research publications and patents. He spearheads
+                                    several government-sponsored and industrial research projects.
+                                </p>
+                            </div>
+
+                            <!-- Tab: Credentials -->
+                            <div id="content-advisor-credentials" class="tab-content-advisor hidden space-y-3">
+                                <h4 class="text-white font-bold text-sm uppercase tracking-wide">Academic Credentials:
+                                </h4>
+                                <ul class="list-disc pl-5 text-slate-400 text-sm sm:text-base space-y-1 font-light">
+                                    <li>Ph.D. in Chemical Engineering from Jadavpur University, Kolkata</li>
+                                    <li>M.Tech in Chemical Engineering from Jadavpur University, Kolkata</li>
+                                    <li>B.Tech in Chemical Engineering from WBUtech, Kolkata</li>
+                                </ul>
+                                <h4 class="text-white font-bold text-sm uppercase tracking-wide mt-3">Honors &
+                                    Accolades:</h4>
+                                <p class="text-slate-400 text-xs sm:text-sm font-light">
+                                    Award-winning editor(NIT Agartala) and published researcher with a strong track
+                                    record in chemical
+                                    engineering. Successfully led key R&D projects for national bodies like DRDO and DST
+                                    alongside prominent industrial partners.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Regional Member Card (Photo Left, Dashboard Right) -->
+                <div
+                    class="group relative backdrop-blur-xl bg-white/[0.01] hover:bg-white/[0.02] border border-white/5 hover:border-emerald-500/25 rounded-[2rem] p-6 sm:p-8 flex flex-col lg:flex-row gap-8 items-center lg:items-start transition-all duration-500">
+                    <!-- Ambient Glow -->
+                    <div
+                        class="absolute -inset-[1px] bg-gradient-to-r from-emerald-500/10 via-transparent to-cyan-500/10 rounded-[2rem] opacity-0 group-hover:opacity-100 blur-sm pointer-events-none transition-all duration-700">
+                    </div>
+
+                    <!-- Left Photo & Links Subpanel -->
+                    <div class="flex flex-col items-center gap-4 shrink-0 z-10">
+                        <div
+                            class="relative w-40 h-40 sm:w-48 sm:h-48 rounded-2xl overflow-hidden border border-white/10 bg-[#010a08]/80 shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex items-center justify-center group-hover:border-emerald-400/40 transition-all duration-500">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-tr from-emerald-500/10 to-cyan-500/5 opacity-40 group-hover:scale-110 transition-transform duration-500">
+                            </div>
+                            <!-- Silhouette Icon Fallback -->
+                            <svg class="w-16 h-16 text-emerald-400/40 group-hover:text-emerald-400/60 transition-colors duration-500"
+                                fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            <!-- Image Tag (uncomment and replace src when photo is available) -->
+                            <img src="https://res.cloudinary.com/dobshyhdz/image/upload/f_auto,q_auto/v1782577867/WhatsApp_Image_2026-06-27_at_21.40.56_hwemln.jpg"
+                                alt="Regional Member"
+                                class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500"
+                                onload="this.style.opacity='1'">
+                        </div>
+
+                        <!-- Contact Icons -->
+                        <div class="flex items-center gap-3">
+                            <!-- <a href="mailto:aksen@bitmesra.ac.in"
+                                class="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-emerald-400 hover:border-emerald-500/30 transition-all"
+                                title="Email Address">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                            </a> -->
+                            <a href="https://www.linkedin.com/in/debasree-ghosh-488626187/"
+                                class="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-emerald-400 hover:border-emerald-500/30 transition-all"
+                                title="LinkedIn Profile">
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                                    <path
+                                        d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                                </svg>
+                            </a>
+                            <a href="https://scholar.google.com/citations?user=MlKh9xoAAAAJ&hl=en"
+                                class="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-emerald-400 hover:border-emerald-500/30 transition-all"
+                                title="Google Scholar">
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l12 9.5 7-5.5v5.5h2v-7.1l3-2.4L12 0z" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Right Information Dashboard -->
+                    <div class="flex-grow w-full text-center lg:text-left z-10">
+                        <div class="mb-4">
+                            <h3 class="text-xs uppercase tracking-[0.15em] text-emerald-400 font-semibold mb-1">Member,
+                                IIChE
+                                Regional Center</h3>
+                            <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Dr. Debasree Ghosh</h2>
+                        </div>
+
+                        <!-- Dashboard Tabs -->
+                        <div
+                            class="flex flex-wrap justify-center lg:justify-start gap-2 mb-4 border-b border-white/5 pb-3">
+                            <button onclick="switchTab('regional', 'bio')" id="tab-regional-bio"
+                                class="tab-btn-regional px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 transition-all">Biography</button>
+                            <button onclick="switchTab('regional', 'research')" id="tab-regional-research"
+                                class="tab-btn-regional px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg border border-white/5 hover:border-emerald-500/20 text-slate-400 hover:text-white transition-all">Research</button>
+                            <button onclick="switchTab('regional', 'credentials')" id="tab-regional-credentials"
+                                class="tab-btn-regional px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg border border-white/5 hover:border-emerald-500/20 text-slate-400 hover:text-white transition-all">Credentials</button>
+                        </div>
+
+                        <!-- Tab Content Box -->
+                        <div
+                            class="relative bg-black/30 border border-white/5 rounded-2xl p-5 sm:p-6 text-left min-h-[160px]">
+                            <!-- Tab: Biography -->
+                            <div id="content-regional-bio" class="tab-content-regional space-y-4">
+                                <p class="text-slate-400 text-sm sm:text-base leading-relaxed font-light">
+                                    Dr. Debasree Ghosh represents the student body at the IIChE regional division. She
+                                    establishes direct relationships between senior academic boards and industrial
+                                    regulatory councils.
+                                </p>
+                                <p class="text-slate-400 text-sm sm:text-base leading-relaxed font-light">
+                                    Her role ensures our chemical engineering initiatives maintain alignment with
+                                    standard national regulations, helping coordinate regional workshops and student-run
+                                    technical panels.
+                                </p>
+                            </div>
+
+                            <!-- Tab: Research -->
+                            <div id="content-regional-research" class="tab-content-regional hidden space-y-3">
+                                <h4 class="text-white font-bold text-sm uppercase tracking-wide">Key Focus Areas:</h4>
+                                <ul class="list-disc pl-5 text-slate-400 text-sm sm:text-base space-y-1 font-light">
+                                    <li>Phase Change Materials (PCM) & Thermal Energy Storage</li>
+                                    <li>Computational Fluid Dynamics (CFD) & Numerical Simulation</li>
+                                    <li>Heat Transfer & Thermal Engineering</li>
+                                    <li>Melting & Solidification Analysis</li>
+                                </ul>
+                                <p
+                                    class="text-slate-400 text-xs sm:text-sm font-light leading-relaxed pt-2 border-t border-white/5">
+                                    Active researcher with a main focus on Phase Change Materials for Thermal Energy
+                                    Storage.
+                                </p>
+                            </div>
+
+                            <!-- Tab: Credentials -->
+                            <div id="content-regional-credentials" class="tab-content-regional hidden space-y-3">
+                                <h4 class="text-white font-bold text-sm uppercase tracking-wide">Education & Expertise:
+                                </h4>
+                                <ul class="list-disc pl-5 text-slate-400 text-sm sm:text-base space-y-1 font-light">
+                                    <li>Ph.D. in Chemical Engineering from Jadavpur University</li>
+                                    <li>Over 15 years of active academic advisory experience</li>
+                                    <li>specialized in Phase Change Materials (PCM) and Thermal Energy Storage.</li>
+                                </ul>
+                                <h4 class="text-white font-bold text-sm uppercase tracking-wide mt-3">Regulatory Panels:
+                                </h4>
+                                <p class="text-slate-400 text-xs sm:text-sm font-light">
+                                    Actively contributes to academic governance and institutional excellence through
+                                    leadership in regulatory panels, quality assurance committees, and academic policy
+                                    initiatives.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Board Members Section -->
+            <section class="mb-16 border-t border-emerald-500/10 pt-16">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-2 h-6 bg-emerald-400 rounded-full shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">The Board & Managerial
+                        Team</h2>
+                </div>
+                <p class="text-slate-400 text-sm sm:text-base font-light leading-relaxed mb-6">
+                    The IIChE BIT Mesra Board and Managerial Team is a passionate group of student leaders committed to
+                    driving the chapter's vision and ensuring excellence across every domain. Working closely with the
+                    core team, they plan and execute flagship events, workshops, industrial interactions, and chapter
+                    initiatives while fostering innovation, teamwork, and leadership. Beyond organizational
+                    responsibilities, the board actively nurtures members' technical, creative, communication, and
+                    management skills through diverse learning opportunities. Every tenure lasts one year, with
+                    leadership passed on through a rigorous process of dedication, performance, and merit, ensuring a
+                    legacy of excellence and continuous growth.
+
+                </p>
+                <div class="mt-8">
+                    <a href="../pages/departments.html"
+                        class="inline-flex items-center gap-2.5 px-6 h-12 rounded-xl bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 border border-emerald-500/30 hover:border-emerald-500/60 text-white font-bold text-xs sm:text-sm tracking-wide uppercase transition-all shadow-[0_4px_20px_rgba(16,185,129,0.1)] hover:shadow-[0_4px_25px_rgba(16,185,129,0.25)] active:scale-95 group">
+                        Know More About Team
+                        <svg class="w-4 h-4 text-emerald-400 group-hover:translate-x-1 transition-transform" fill="none"
+                            stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </a>
+                </div>
+            </section>
+
+            <!-- The Core Committee Section -->
+            <section class="mb-12 border-t border-cyan-500/10 pt-16">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-2 h-6 bg-cyan-400 rounded-full shadow-[0_0_10px_rgba(6,182,212,0.5)]"></div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">The Core Committee</h2>
+                </div>
+                <p class="text-slate-400 text-sm sm:text-base font-light leading-relaxed">
+                    The core committee is the execution backbone of IIChE BITM, translating our strategic vision into
+                    reality through dedicated operations, event coordination, and outreach. Comprising specialized
+                    groups in research, content, PR, and design, this team tackles real-world challenges that shape them
+                    into committed, adaptable chemical engineers.
+                    <br>
+                    <br>
+                    In this dynamic environment, members refine their skills, embrace teamwork, and unlock their full
+                    potential. With a positive attitude and an open mind, they learn to innovate and excel.
+                </p>
+            </section>
+
+        </main>
+
+        <!-- Footer Section -->
+        <footer class="bg-[#010a08]/80 border-t border-white/5 relative z-20 backdrop-blur-md mt-auto">
+            <!-- Glow Accent Line -->
+            <div class="w-full h-[1px] bg-gradient-to-r from-transparent via-emerald-500/25 to-transparent"></div>
+
+            <div class="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-3 gap-12 sm:gap-16">
+                <!-- Column 1: Logo & Tagline -->
+                <div class="flex flex-col gap-4">
+                    <div class="flex items-center gap-3">
+                        <img src="../assets/logo.png" alt="Logo"
+                            class="w-10 h-10 object-contain filter drop-shadow-[0_0_10px_rgba(16,185,129,0.3)]">
+                        <span class="text-xl font-black tracking-tighter text-gradient">IIChE BITM</span>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed max-w-sm font-light">
+                        Empowering the future of Chemical Engineering with innovation and excellence.
+                    </p>
+                    <p class="text-xs text-slate-400 tracking-wide mt-3">
+                        Designed & Developed by
+                        <a href="https://www.linkedin.com/in/raghav-agarwal-39aa842b5/" target="_blank"
+                            class="text-emerald-400 hover:text-emerald-300 transition-colors duration-300 font-semibold">Raghav
+                            Agarwal</a>
+                        &
+                        <a href="https://www.linkedin.com/in/satyam-raj-80a57627a/" target="_blank"
+                            class="text-cyan-400 hover:text-cyan-300 transition-colors duration-300 font-semibold">Satyam
+                            Raj</a>
+                    </p>
+                </div>
+                <!-- Column 3: Social Links (LinkedIn, Instagram, YouTube) -->
+                <div class="flex flex-col gap-4 md:items-center md:text-center">
+                    <h3 class="text-white font-bold text-base uppercase tracking-wider">Connect With Us</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed max-w-xs font-light">
+                        Stay connected and follow us on our social media platforms.
+                    </p>
+                    <div class="flex items-center gap-6 mt-2">
+                        <!-- LinkedIn Icon -->
+                        <a href="https://www.linkedin.com/company/iiche-bit-mesra-student-chapter/" target="_blank"
+                            class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:text-emerald-400 hover:border-emerald-500/30 hover:bg-emerald-500/5 transition-all shadow-inner active:scale-95"
+                            title="Connect on LinkedIn">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                                <path
+                                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                            </svg>
+                        </a>
+
+                        <!-- Instagram Icon -->
+                        <a href="https://www.instagram.com/iiche_bit_mesra/" target="_blank"
+                            class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:text-cyan-400 hover:border-cyan-500/30 hover:bg-cyan-500/5 transition-all shadow-inner active:scale-95"
+                            title="Connect on Instagram">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                            </svg>
+                        </a>
+
+                        <!-- YouTube Icon -->
+                        <a href="https://www.youtube.com/@IIChEBITMesra" target="_blank"
+                            class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:text-red-500 hover:border-red-500/30 hover:bg-red-500/5 transition-all shadow-inner active:scale-95"
+                            title="Connect on YouTube">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                                <path
+                                    d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.518 3.545 12 3.545 12 3.545s-7.518 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.87.508 9.388.508 9.388.508s7.518 0 9.388-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Column 3: Contact Us (Address, Email) -->
+                <div class="flex flex-col gap-4">
+                    <h3 class="text-white font-bold text-base uppercase tracking-wider">Contact Us</h3>
+                    <div class="flex flex-col gap-2.5 text-slate-400 text-sm font-light">
+                        <!-- Address section -->
+                        <div class="flex items-start gap-2.5">
+                            <svg class="w-4 h-4 mt-0.5 text-emerald-400 shrink-0" fill="none" stroke="currentColor"
+                                stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            <span>
+                                BIT Mesra<br>Ranchi, Jharkhand
+                            </span>
+                        </div>
+                        <!-- Email section -->
+                        <div class="flex items-center gap-2.5">
+                            <svg class="w-4 h-4 text-cyan-400 shrink-0" fill="none" stroke="currentColor"
+                                stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                            <a href="mailto:iiche@bitm.ac.in" class="hover:text-cyan-400 transition-colors">
+                                iiche@bitm.ac.in
+                            </a>
+                        </div>
+                    </div>
+                    <p class="text-slate-500 text-xs mt-2">
+                        &copy; 2026 IIChE BITM. All rights reserved.
+                    </p>
+                    <p class="text-slate-500 text-md mt-2">
+                        <a href="#" class="hover:text-emerald-400 transition-colors">Privacy Policy</a>
+                        &nbsp; &nbsp;
+                        <a href="#" class="hover:text-cyan-400 transition-colors">Terms of Service</a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Sub Footer Bar -->
+            <div class="border-t border-white/5 py-6 text-center text-xs text-slate-500 bg-[#010a08]/30">
+                <p>Designed with <span class="text-rose-500 animate-pulse">❤️</span> by <span
+                        class="text-gradient font-bold">IIChE BITM</span></p>
+            </div>
+        </footer>
+    </div>
+    <!-- Lenis Smooth Scroll -->
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+    <script src="../lenis.setup.js"></script>
+
+    <script>
+        // Tab system logic
+        function switchTab(profileId, tabName) {
+            // Select all buttons for this profile and deactivate them
+            const buttons = document.querySelectorAll(`.tab-btn-${profileId}`);
+            buttons.forEach(btn => {
+                btn.classList.remove('border-emerald-500/20', 'bg-emerald-500/10', 'text-emerald-400', 'border-cyan-500/20', 'bg-cyan-500/10', 'text-cyan-400');
+                btn.classList.add('border-white/5', 'text-slate-400');
+            });
+
+            // Select all contents for this profile and hide them
+            const contents = document.querySelectorAll(`.tab-content-${profileId}`);
+            contents.forEach(content => {
+                content.classList.add('hidden');
+                content.classList.remove('block');
+            });
+
+            // Determine active colors based on profile ID
+            const themeColor = (profileId === 'advisor') ? 'cyan' : 'emerald';
+
+            // Activate current button
+            const activeBtn = document.getElementById(`tab-${profileId}-${tabName}`);
+            activeBtn.classList.remove('border-white/5', 'text-slate-400');
+            activeBtn.classList.add(`border-${themeColor}-500/20`, `bg-${themeColor}-500/10`, `text-${themeColor}-400`);
+
+            // Show current content
+            const activeContent = document.getElementById(`content-${profileId}-${tabName}`);
+            activeContent.classList.remove('hidden');
+            activeContent.classList.add('block');
+
+            // Trigger quick animation with GSAP if loaded
+            if (typeof gsap !== 'undefined') {
+                gsap.fromTo(activeContent,
+                    { opacity: 0, y: 8 },
+                    { opacity: 1, y: 0, duration: 0.35, ease: "power1.out" }
+                );
+            }
+        }
+
+        // Particle System initialization
+        const particlesContainer = document.getElementById('particles-container');
+        if (particlesContainer) {
+            for (let i = 0; i < 40; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                const size = Math.random() * 6 + 3;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particlesContainer.appendChild(particle);
+
+                if (typeof gsap !== 'undefined') {
+                    gsap.to(particle, {
+                        y: -(Math.random() * 180 + 80),
+                        opacity: 0,
+                        duration: Math.random() * 4 + 3,
+                        repeat: -1,
+                        ease: 'sine.inOut',
+                        delay: Math.random() * 2
+                    });
+                }
+            }
+        }
+    </script>
+    <!-- Lucide Icons -->
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+    <!-- Frontend Auth Client SDK -->
+    <script src="../auth-client.js"></script>
+    <!-- Responsive Navigation -->
+    <script src="../responsive-nav.js"></script>
+</body>
+
+</html>

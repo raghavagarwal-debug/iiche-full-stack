@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Workshops | IIChE Student Chapter, BIT Mesra | Official Website</title>
+    <meta name="description"
+        content="Explore technical workshops organized by the IIChE Student Chapter, BIT Mesra. Gain hands-on experience, industry exposure, practical skills, and insights into emerging technologies through expert-led interactive sessions.">
+    <meta name="author" content="IIChE Student Chapter, BIT Mesra">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/png" href="../favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="../favicon/favicon.svg" />
+    <link rel="shortcut icon" href="../favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="IIChE" />
+    <link rel="manifest" href="../favicon/site.webmanifest" />
+    <meta name="theme-color" content="#10B981">
+    <script>
+        const origWarn = console.warn;
+        console.warn = function (...args) {
+            if (args[0] && typeof args[0] === 'string' && args[0].includes('cdn.tailwindcss.com')) return;
+            origWarn.apply(console, args);
+        };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+        <!-- High-Speed CDN & Font Preconnects -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://res.cloudinary.com">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://res.cloudinary.com">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #010a08;
+            overflow-x: hidden;
+            color: #f1f5f9;
+        }
+
+        .noise-bg {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.02;
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, #10b981, #06b6d4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Particles */
+        .particle {
+            position: absolute;
+            background: rgba(16, 185, 129, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Bento Grid styles */
+        .bento-card {
+            background: rgba(2, 19, 16, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bento-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(800px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(16, 185, 129, 0.12), transparent 40%);
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+
+        .bento-card:hover::before {
+            opacity: 1;
+        }
+
+        .bento-card:hover {
+            border-color: rgba(16, 185, 129, 0.35);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(16, 185, 129, 0.08);
+            transform: translateY(-4px);
+        }
+
+        /* Certificate Hover Tilt */
+        .certificate-container {
+            perspective: 1000px;
+        }
+
+        .certificate-tilt {
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .bento-card:hover .certificate-tilt {
+            transform: rotateY(8deg) rotateX(4deg) translateZ(10px);
+        }
+
+        /* docs Typing Simulation Animation */
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 0.8s infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        /* Liquid Glass Design System */
+        .liquid-glass-nav {
+            background: linear-gradient(180deg, rgba(1, 10, 8, 0.75) 0%, rgba(2, 24, 20, 0.55) 100%);
+            backdrop-filter: blur(28px) saturate(200%);
+            -webkit-backdrop-filter: blur(28px) saturate(200%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow:
+                0 20px 50px 0 rgba(0, 0, 0, 0.6),
+                0 0 30px 0 rgba(16, 185, 129, 0.15),
+                inset 0 1px 1px 0 rgba(255, 255, 255, 0.35);
+        }
+    </style>
+</head>
+
+<body class="selection:bg-emerald-500/30">
+    <!-- Fixed Background Image Layer -->
+    <div class="fixed inset-0 z-0 bg-cover bg-center"
+        style="background-image: linear-gradient(rgba(1, 10, 8, 0.65), rgba(1, 10, 8, 0.8)), url('../assets/hero_bg.webp');">
+    </div>
+    <!-- Backdrop Blur & Overlay Layer matching About/Board Sections -->
+    <div class="fixed inset-0 z-0 bg-[#010a08]/75 backdrop-blur-md"></div>
+
+    <!-- Ambient Background Layers -->
+    <div class="fixed inset-0 noise-bg pointer-events-none z-[1]"></div>
+    <div id="particles-container" class="fixed inset-0 pointer-events-none z-[2]"></div>
+
+    <!-- Ambient Glow Backgrounds -->
+    <div
+        class="fixed top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-emerald-500/5 rounded-full blur-[150px] pointer-events-none z-0">
+    </div>
+    <div
+        class="fixed bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-[600px] h-[600px] bg-cyan-500/5 rounded-full blur-[150px] pointer-events-none z-0">
+    </div>
+
+    <div class="relative z-10 w-full min-h-screen flex flex-col opacity-0">
+        <!-- Navigation Bar -->
+        <nav
+            class="fixed top-8 left-1/2 -translate-x-1/2 w-[90%] max-w-7xl z-50 liquid-glass-nav rounded-2xl transition-all duration-500">
+            <div class="px-4 sm:px-10 h-16 flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <img src="../assets/logo.png" alt="Logo" class="w-10 h-10 object-contain">
+                    <a href="../index.html#hero-section"
+                        class="text-xl font-black tracking-tighter text-gradient">IIChE</a>
+                </div>
+
+                <div class="hidden md:flex items-center gap-12">
+                    <a href="../index.html#hero-section"
+                        class="text-xs font-bold text-slate-300 hover:text-emerald-400 transition-all uppercase tracking-widest">Home</a>
+                    <a href="../pages/committee.html"
+                        class="text-xs font-bold text-slate-300 hover:text-emerald-400 transition-all uppercase tracking-widest">Committee</a>
+                    <a href="../pages/departments.html"
+                        class="text-xs font-bold text-slate-300 hover:text-emerald-400 transition-all uppercase tracking-widest">Departments</a>
+                    <a href="../pages/events.html"
+                        class="text-xs font-bold text-emerald-400 transition-all uppercase tracking-widest border-b border-emerald-400 pb-1">Events</a>
+                    <a href="../index.html#blogs-section"
+                        class="text-xs font-bold text-slate-300 hover:text-emerald-400 transition-all uppercase tracking-widest">Blogs</a>
+                    <a href="../pages/more.html"
+                        class="text-xs font-bold text-slate-300 hover:text-emerald-400 transition-all uppercase tracking-widest">More</a>
+                </div>
+
+                <!-- Mobile Navigation Button (Go Back to Home) -->
+                <div class="md:hidden">
+                    <a href="../index.html"
+                        class="text-xs font-bold text-emerald-400 uppercase tracking-widest flex items-center gap-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                        Back Home
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Wrapper (Full bleed sections inside) -->
+        <main class="flex-grow w-full pt-32 pb-16 flex flex-col gap-28">
+
+            <!-- Hero Header Section -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 w-full text-center relative">
+                <!-- Decorative Top Badge -->
+                <div
+                    class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-6 backdrop-blur-md">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span class="text-[10px] sm:text-xs uppercase tracking-[0.25em] text-emerald-300 font-medium">SKILL
+                        DEVELOPMENT INITIATIVES</span>
+                </div>
+
+                <!-- Main Header Title -->
+                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white relative leading-none">
+                    TECHNICAL <span class="text-gradient drop-shadow-[0_0_35px_rgba(16,185,129,0.25)]">WORKSHOPS</span>
+                </h1>
+
+                <p class="text-slate-300 mt-6 max-w-3xl mx-auto text-base sm:text-lg font-light leading-relaxed">
+                    Bridge the gap between theoretical academia and industrial needs. Learn high-demand simulation,
+                    design, and computation tools through guided, hands-on projects.
+                </p>
+
+                <!-- Elegant Separator -->
+                <div
+                    class="w-28 h-[1px] bg-gradient-to-r from-transparent via-emerald-500/40 to-transparent mx-auto mt-8 mb-12">
+                </div>
+
+                <!-- Metrics Dashboard Grid -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto mt-6">
+                    <div
+                        class="border border-white/5 bg-white/[0.01] hover:bg-emerald-500/[0.02] p-5 sm:p-6 rounded-2xl flex flex-col gap-1.5 hover:border-emerald-500/20 transition-all duration-300">
+                        <span class="text-3xl sm:text-4xl font-black text-white text-gradient">200+</span>
+                        <span
+                            class="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 font-semibold">Students
+                            Trained</span>
+                    </div>
+                    <div
+                        class="border border-white/5 bg-white/[0.01] hover:bg-cyan-500/[0.02] p-5 sm:p-6 rounded-2xl flex flex-col gap-1.5 hover:border-cyan-500/20 transition-all duration-300">
+                        <span class="text-3xl sm:text-4xl font-black text-white text-gradient">100+</span>
+                        <span class="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 font-semibold">Hours
+                            of Content</span>
+                    </div>
+                    <div
+                        class="border border-white/5 bg-white/[0.01] hover:bg-emerald-500/[0.02] p-5 sm:p-6 rounded-2xl flex flex-col gap-1.5 hover:border-emerald-500/20 transition-all duration-300">
+                        <span class="text-3xl sm:text-4xl font-black text-white text-gradient">20+</span>
+                        <span
+                            class="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 font-semibold">Projects
+                            Built</span>
+                    </div>
+                    <div
+                        class="border border-white/5 bg-white/[0.01] hover:bg-cyan-500/[0.02] p-5 sm:p-6 rounded-2xl flex flex-col gap-1.5 hover:border-cyan-500/20 transition-all duration-300">
+                        <span class="text-3xl sm:text-4xl font-black text-white text-gradient">3+</span>
+                        <span
+                            class="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 font-semibold">Software
+                            Suites</span>
+                    </div>
+                </div>
+
+                <!-- Registration Alert Box -->
+                <div class="max-w-5xl mx-auto mt-10 w-full text-left">
+                    <div
+                        class="relative group overflow-hidden rounded-2xl border border-cyan-500/20 bg-cyan-950/10 hover:border-cyan-500/40 p-4 sm:p-5 flex items-center gap-4 transition-all duration-500 shadow-[0_8px_32px_0_rgba(6,182,212,0.05)] hover:shadow-[0_12px_40px_rgba(6,182,212,0.12)]">
+                        <!-- Subtle Glow effect inside border -->
+                        <div
+                            class="absolute -inset-px bg-gradient-to-r from-cyan-500/10 to-emerald-500/10 rounded-2xl opacity-50 group-hover:opacity-100 transition-opacity pointer-events-none">
+                        </div>
+
+                        <div
+                            class="relative z-10 flex-shrink-0 w-11 h-11 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 shadow-inner group-hover:scale-105 transition-transform">
+                            <svg class="w-5.5 h-5.5" fill="none" stroke="currentColor" stroke-width="2.25"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 16v-4m0-4h.01M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10z" />
+                            </svg>
+                        </div>
+                        <div class="relative z-10 flex-grow">
+                            <h4 class="text-white font-bold text-sm sm:text-base tracking-wide">Registration Info</h4>
+                            <p class="text-slate-300 text-xs sm:text-sm font-light mt-0.5 leading-relaxed">
+                                Registration will be coming soon. Keep an eye out for updates!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+            <!-- Interactive Workshops Timeline / Showcase -->
+            <section class="w-full flex flex-col gap-24">
+
+                <!-- Workshop 1: Design Workshop (Alternating: Poster Left, Details Right) -->
+                <div class="w-full border-y border-white/5 bg-white/[0.01] py-16 sm:py-20 relative">
+                    <div
+                        class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+                        <!-- Left: Poster Frame -->
+                        <div class="lg:col-span-5 flex justify-center w-full">
+                            <div
+                                class="group relative aspect-[1/1.25] w-full max-w-md overflow-hidden rounded-3xl border border-white/10 bg-[#021310]/15 p-2 transition-all duration-500 hover:scale-[1.03] hover:-translate-y-1.5 hover:shadow-[0_30px_60px_rgba(16,185,129,0.25)] hover:border-emerald-500/50">
+                                <div class="relative w-full h-full overflow-hidden rounded-2xl bg-slate-950">
+                                    <img src="https://res.cloudinary.com/dobshyhdz/image/upload/f_auto,q_auto/v1782843652/Screenshot_2026-06-30_234727_xbv41p.png"
+                                        alt="Design Workshop Poster"
+                                        class="w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105 filter brightness-[0.95] group-hover:brightness-100">
+                                    <!-- Gloss sheen reflection sweep overlay -->
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out pointer-events-none z-10">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right: Details -->
+                        <div class="lg:col-span-7 flex flex-col gap-6">
+                            <div class="flex items-center gap-2.5">
+                                <span
+                                    class="px-2.5 py-1 rounded-md bg-amber-500/10 border border-amber-500/20 text-[10px] uppercase font-bold text-amber-400 tracking-wider">CREATIVE
+                                    FOUNDATIONS</span>
+                            </div>
+
+                            <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
+                                Design Workshop : Layouts & Design Tools
+                            </h2>
+
+                            <p class="text-slate-300 text-sm sm:text-base font-light leading-relaxed">
+                                Learn the fundamentals of modern poster design, including typography, color palettes,
+                                layout composition, and visual hierarchy. This hands-on workshop is perfect for
+                                beginners looking to create stunning posters, event banners, presentation decks, and
+                                social media creatives using Canva.
+                            </p>
+
+                            <!-- Syllabus Accordion -->
+                            <div class="mt-2 border-t border-white/5">
+                                <h3 class="text-xs uppercase text-slate-400 tracking-widest font-bold mt-4 mb-2">
+                                    Workshop Curriculum</h3>
+
+                                <!-- Syllabus Item 1 -->
+                                <div class="border-b border-white/5 py-3">
+                                    <button onclick="toggleAccordion('design-m1')"
+                                        class="w-full flex items-center justify-between text-left focus:outline-none py-1">
+                                        <span
+                                            class="text-sm font-semibold text-slate-200 hover:text-emerald-400 transition-colors">Module
+                                            1: Visual Design Principles & Color Theory</span>
+                                        <svg id="icon-design-m1"
+                                            class="w-4 h-4 text-slate-400 transition-transform duration-300" fill="none"
+                                            stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </button>
+                                    <div id="content-design-m1"
+                                        class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                                        <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+                                            Understand layout grids, alignment rules, typography selection, visual
+                                            hierarchies, and generating professional color schemes matching digital
+                                            standards.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- Syllabus Item 2 -->
+                                <div class="border-b border-white/5 py-3">
+                                    <button onclick="toggleAccordion('design-m2')"
+                                        class="w-full flex items-center justify-between text-left focus:outline-none py-1">
+                                        <span
+                                            class="text-sm font-semibold text-slate-200 hover:text-emerald-400 transition-colors">Module
+                                            2: Mastering Canva Tools & Components</span>
+                                        <svg id="icon-design-m2"
+                                            class="w-4 h-4 text-slate-400 transition-transform duration-300" fill="none"
+                                            stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </button>
+                                    <div id="content-design-m2"
+                                        class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                                        <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+                                            Introduction to Canva: vector shaping, frames, auto-layout, component
+                                            states, libraries, and establishing a consistent design system.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- Syllabus Item 3 -->
+                                <div class="border-b border-white/5 py-3">
+                                    <button onclick="toggleAccordion('design-m3')"
+                                        class="w-full flex items-center justify-between text-left focus:outline-none py-1">
+                                        <span
+                                            class="text-sm font-semibold text-slate-200 hover:text-emerald-400 transition-colors">Module
+                                            3: Hands-on Project: Creating Posters</span>
+                                        <svg id="icon-design-m3"
+                                            class="w-4 h-4 text-slate-400 transition-transform duration-300" fill="none"
+                                            stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </button>
+                                    <div id="content-design-m3"
+                                        class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                                        <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+                                            Design professional posters from scratch, create visually engaging layouts,
+                                            configure creative design elements, and produce high-quality, share-ready
+                                            graphics using Canva.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Meta Details Grid -->
+                            <div
+                                class="grid grid-cols-2 sm:grid-cols-4 gap-4 bg-white/[0.02] border border-white/5 p-4 rounded-xl mt-2 text-xs">
+                                <div>
+                                    <span class="block text-slate-500 mb-0.5">Venue</span>
+                                    <span class="font-semibold text-white">Online</span>
+                                </div>
+                                <div>
+                                    <span class="block text-slate-500 mb-0.5">Time</span>
+                                    <span class="font-semibold text-white">9:00 PM - 10:30 PM</span>
+                                </div>
+                                <div>
+                                    <span class="block text-slate-500 mb-0.5">Registration Fee</span>
+                                    <span class="font-semibold text-emerald-400">Free</span>
+                                </div>
+                                <div>
+                                    <span class="block text-slate-500 mb-0.5">Contacts</span>
+                                    <span class="font-semibold text-white block">Naman: 8817471385</span>
+                                </div>
+                            </div>
+
+                            <!-- Actions -->
+                            <div class="flex flex-wrap items-center gap-4 mt-2">
+                                <a href="#" target="_blank"
+                                    data-event-title="Design Workshop Layout and Design Tools"
+                                    class="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 text-xs font-bold text-slate-950 uppercase tracking-widest hover:brightness-110 hover:shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all">
+                                    Coming Soon ...
+                                </a>
+                                <a href="https://www.instagram.com/p/DY8w0J9zA8w/" target="_blank"
+                                    class="px-5 py-3 rounded-xl border border-white/10 hover:border-emerald-500/30 bg-white/[0.02] hover:bg-emerald-500/[0.04] text-xs font-bold text-slate-300 hover:text-emerald-400 uppercase tracking-widest transition-all">
+                                    Learn More
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Workshop 2: MATLAB Workshop (Alternating: Details Left, Poster Right) -->
+                <div class="w-full relative">
+                    <div
+                        class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+                        <!-- Left: Details -->
+                        <div class="lg:col-span-7 order-2 lg:order-1 flex flex-col gap-6">
+                            <div class="flex items-center gap-2.5">
+                                <span
+                                    class="px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-[10px] uppercase font-bold text-emerald-400 tracking-wider">MATHEMATICAL
+                                    COMPUTATION</span>
+                            </div>
+
+                            <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
+                                MATLAB Workshop: Numeric Scripting & Simulators
+                            </h2>
+
+                            <p class="text-slate-300 text-sm sm:text-base font-light leading-relaxed">
+                                Dive into engineering computations with MATLAB: matrices, calculus, algorithm logic,
+                                live-script generation, differential equation solving, chemical reaction modeling, and
+                                numerical plot visualizations.
+                            </p>
+
+                            <!-- Syllabus Accordion -->
+                            <div class="mt-2 border-t border-white/5">
+                                <h3 class="text-xs uppercase text-slate-400 tracking-widest font-bold mt-4 mb-2">
+                                    Workshop Curriculum</h3>
+
+                                <!-- Syllabus Item 1 -->
+                                <div class="border-b border-white/5 py-3">
+                                    <button onclick="toggleAccordion('matlab-m1')"
+                                        class="w-full flex items-center justify-between text-left focus:outline-none py-1">
+                                        <span
+                                            class="text-sm font-semibold text-slate-200 hover:text-emerald-400 transition-colors">Module
+                                            1: Scripting Syntax, Arrays & Matrices</span>
+                                        <svg id="icon-matlab-m1"
+                                            class="w-4 h-4 text-slate-400 transition-transform duration-300" fill="none"
+                                            stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </button>
+                                    <div id="content-matlab-m1"
+                                        class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                                        <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+                                            Mastering vector slicing, multi-dimensional matrix operations, logical
+                                            masking, script structures, loops, and custom user functions.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- Syllabus Item 2 -->
+                                <div class="border-b border-white/5 py-3">
+                                    <button onclick="toggleAccordion('matlab-m2')"
+                                        class="w-full flex items-center justify-between text-left focus:outline-none py-1">
+                                        <span
+                                            class="text-sm font-semibold text-slate-200 hover:text-emerald-400 transition-colors">Module
+                                            2: Data Visualizations & Graph Plotting</span>
+                                        <svg id="icon-matlab-m2"
+                                            class="w-4 h-4 text-slate-400 transition-transform duration-300" fill="none"
+                                            stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </button>
+                                    <div id="content-matlab-m2"
+                                        class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                                        <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+                                            2D/3D plots, formatting graph properties, subplots, mesh grids, surface
+                                            renderings, contour topologies, and exporting vector assets.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- Syllabus Item 3 -->
+                                <div class="border-b border-white/5 py-3">
+                                    <button onclick="toggleAccordion('matlab-m3')"
+                                        class="w-full flex items-center justify-between text-left focus:outline-none py-1">
+                                        <span
+                                            class="text-sm font-semibold text-slate-200 hover:text-emerald-400 transition-colors">Module
+                                            3: Solving Differential Equations in ChemE</span>
+                                        <svg id="icon-matlab-m3"
+                                            class="w-4 h-4 text-slate-400 transition-transform duration-300" fill="none"
+                                            stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </button>
+                                    <div id="content-matlab-m3"
+                                        class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                                        <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+                                            Utilizing ODE45 solvers for reaction kinetics, steady state mass and energy
+                                            transfer balances, and transient simulations.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Meta Details Grid -->
+                            <div
+                                class="grid grid-cols-2 sm:grid-cols-4 gap-4 bg-white/[0.02] border border-white/5 p-4 rounded-xl mt-2 text-xs">
+                                <div>
+                                    <span class="block text-slate-500 mb-0.5">Venue</span>
+                                    <span class="font-semibold text-white">Lab 302</span>
+                                </div>
+                                <div>
+                                    <span class="block text-slate-500 mb-0.5">Time</span>
+                                    <span class="font-semibold text-white">6:00 PM - 8:00 PM</span>
+                                </div>
+                                <div>
+                                    <span class="block text-slate-500 mb-0.5">Registration Fee</span>
+                                    <span class="font-semibold text-emerald-400">Free</span>
+                                </div>
+                                <div>
+                                    <span class="block text-slate-500 mb-0.5">Contacts</span>
+                                    <span class="font-semibold text-white block">Closed</span>
+                                </div>
+                            </div>
+
+                            <!-- Actions -->
+                            <div class="flex flex-wrap items-center gap-4 mt-2">
+                                <a href="#" target="_blank"
+                                    data-event-title="MATLAB and Simulink for Chemical Engineers"
+                                    class="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 text-xs font-bold text-slate-950 uppercase tracking-widest hover:brightness-110 hover:shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all">
+                                    Coming Soon ...
+                                </a>
+                                <a href="https://www.instagram.com/p/DQvhB51ExPC/"
+                                    class="px-5 py-3 rounded-xl border border-white/10 hover:border-emerald-500/30 bg-white/[0.02] hover:bg-emerald-500/[0.04] text-xs font-bold text-slate-300 hover:text-emerald-400 uppercase tracking-widest transition-all">
+                                    Learn More
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Right: Poster Frame -->
+                        <div class="lg:col-span-5 order-1 lg:order-2 flex justify-center w-full">
+                            <div
+                                class="group relative aspect-[1/1.25] w-full max-w-md overflow-hidden rounded-3xl border border-white/10 bg-[#021310]/15 p-2 transition-all duration-500 hover:scale-[1.03] hover:-translate-y-1.5 hover:shadow-[0_30px_60px_rgba(6,182,212,0.25)] hover:border-cyan-500/50">
+                                <div class="relative w-full h-full overflow-hidden rounded-2xl bg-slate-950">
+                                    <img src="https://res.cloudinary.com/dobshyhdz/image/upload/f_auto,q_auto/v1782843656/Screenshot_2026-06-30_234754_fdqq7m.png"
+                                        alt="MATLAB Workshop Poster"
+                                        class="w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105 filter brightness-[0.95] group-hover:brightness-100">
+                                    <!-- Gloss sheen reflection sweep overlay -->
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out pointer-events-none z-10">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- MATLAB Workshop Memories/Gallery Images -->
+                    <div class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 mt-12">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <!-- Image 1 -->
+                            <div
+                                class="group relative overflow-hidden rounded-2xl border border-white/10 bg-[#021310]/15 p-2 transition-all duration-500 hover:scale-[1.02] hover:border-emerald-500/30 shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
+                                <div class="relative aspect-[16/9] w-full overflow-hidden rounded-xl bg-slate-950">
+                                    <img src="https://res.cloudinary.com/dobshyhdz/image/upload/f_auto,q_auto/v1783526082/WhatsApp_Image_2026-07-08_at_18.09.39_kfqr97.jpg"
+                                        alt="MATLAB Workshop Session Image 1"
+                                        class="w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105 filter brightness-[0.9] group-hover:brightness-100">
+                                    <!-- Gloss sheen reflection sweep overlay -->
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out pointer-events-none z-10">
+                                    </div>
+                                    <!-- Caption Overlay -->
+                                    <div
+                                        class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 z-10">
+                                        <p class="text-xs text-emerald-400 font-bold uppercase tracking-wider">Session
+                                            Highlight</p>
+                                        <p class="text-xs text-slate-300 mt-1 font-light">Students participating in
+                                            numerical computation labs during the MATLAB workshop.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Image 2 -->
+                            <div
+                                class="group relative overflow-hidden rounded-2xl border border-white/10 bg-[#021310]/15 p-2 transition-all duration-500 hover:scale-[1.02] hover:border-cyan-500/30 shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
+                                <div class="relative aspect-[16/9] w-full overflow-hidden rounded-xl bg-slate-950">
+                                    <img src="https://res.cloudinary.com/dobshyhdz/image/upload/f_auto,q_auto/v1783526076/WhatsApp_Image_2026-07-08_at_18.09.38_se5zwy.jpg"
+                                        alt="MATLAB Workshop Session Image 2"
+                                        class="w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105 filter brightness-[0.9] group-hover:brightness-100">
+                                    <!-- Gloss sheen reflection sweep overlay -->
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out pointer-events-none z-10">
+                                    </div>
+                                    <!-- Caption Overlay -->
+                                    <div
+                                        class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 z-10">
+                                        <p class="text-xs text-cyan-400 font-bold uppercase tracking-wider">Practical
+                                            Training</p>
+                                        <p class="text-xs text-slate-300 mt-1 font-light">Interactive mentoring and Q&A
+                                            session with recently designed models.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Workshop 3: ANSYS Workshop (Alternating: Poster Left, Details Right) -->
+                <div class="w-full border-y border-white/5 bg-white/[0.01] py-16 sm:py-20 relative">
+                    <div
+                        class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+                        <!-- Left: Poster Frame -->
+                        <div class="lg:col-span-5 flex justify-center w-full">
+                            <div
+                                class="group relative aspect-[1/1.25] w-full max-w-md overflow-hidden rounded-3xl border border-white/10 bg-[#021310]/15 p-2 transition-all duration-500 hover:scale-[1.03] hover:-translate-y-1.5 hover:shadow-[0_30px_60px_rgba(16,185,129,0.25)] hover:border-emerald-500/50">
+                                <div class="relative w-full h-full overflow-hidden rounded-2xl bg-slate-950">
+                                    <img src="https://res.cloudinary.com/dobshyhdz/image/upload/f_auto,q_auto/v1782843661/Screenshot_2026-06-30_234901_g2qoht.png"
+                                        alt="ANSYS Workshop Poster"
+                                        class="w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105 filter brightness-[0.95] group-hover:brightness-100">
+                                    <!-- Gloss sheen reflection sweep overlay -->
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out pointer-events-none z-10">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right: Details -->
+                        <div class="lg:col-span-7 flex flex-col gap-6">
+                            <div class="flex items-center gap-2.5">
+                                <span
+                                    class="px-2.5 py-1 rounded-md bg-cyan-500/10 border border-cyan-500/20 text-[10px] uppercase font-bold text-cyan-400 tracking-wider">FINITE
+                                    ELEMENT ANALYSIS</span>
+                            </div>
+
+                            <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
+                                ANSYS Workshop: Structural FEA & Fluent CFD
+                            </h2>
+
+                            <p class="text-slate-300 text-sm sm:text-base font-light leading-relaxed">
+                                Gain hands-on experience with ANSYS by learning CAD import, geometry preparation, mesh
+                                generation, boundary condition configuration, fluid and structural simulations, thermal
+                                analysis, and result visualization in a modern CAD environment.
+                            </p>
+
+                            <!-- Syllabus Accordion -->
+                            <div class="mt-2 border-t border-white/5">
+                                <h3 class="text-xs uppercase text-slate-400 tracking-widest font-bold mt-4 mb-2">
+                                    Workshop Curriculum</h3>
+
+                                <!-- Syllabus Item 1 -->
+                                <div class="border-b border-white/5 py-3">
+                                    <button onclick="toggleAccordion('ansys-m1')"
+                                        class="w-full flex items-center justify-between text-left focus:outline-none py-1">
+                                        <span
+                                            class="text-sm font-semibold text-slate-200 hover:text-emerald-400 transition-colors">Module
+                                            1: Geometry, Setup & Meshing Essentials</span>
+                                        <svg id="icon-ansys-m1"
+                                            class="w-4 h-4 text-slate-400 transition-transform duration-300" fill="none"
+                                            stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </button>
+                                    <div id="content-ansys-m1"
+                                        class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                                        <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+                                            Using SpaceClaim to edit CAD geometries, setup physical bounds, apply
+                                            mechanical mesh sizes, grid refinement parameters, and check elements'
+                                            qualities.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- Syllabus Item 2 -->
+                                <div class="border-b border-white/5 py-3">
+                                    <button onclick="toggleAccordion('ansys-m2')"
+                                        class="w-full flex items-center justify-between text-left focus:outline-none py-1">
+                                        <span
+                                            class="text-sm font-semibold text-slate-200 hover:text-emerald-400 transition-colors">Module
+                                            2: Structural Mechanics & Stress Analysis</span>
+                                        <svg id="icon-ansys-m2"
+                                            class="w-4 h-4 text-slate-400 transition-transform duration-300" fill="none"
+                                            stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </button>
+                                    <div id="content-ansys-m2"
+                                        class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                                        <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+                                            Applying support constraints, loading pressures, analyzing deformation
+                                            fields, calculating equivalent Von-Mises stresses, and checking factors of
+                                            safety.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- Syllabus Item 3 -->
+                                <div class="border-b border-white/5 py-3">
+                                    <button onclick="toggleAccordion('ansys-m3')"
+                                        class="w-full flex items-center justify-between text-left focus:outline-none py-1">
+                                        <span
+                                            class="text-sm font-semibold text-slate-200 hover:text-emerald-400 transition-colors">Module
+                                            3: Fluid Flow Modelling (Fluent CFD)</span>
+                                        <svg id="icon-ansys-m3"
+                                            class="w-4 h-4 text-slate-400 transition-transform duration-300" fill="none"
+                                            stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </button>
+                                    <div id="content-ansys-m3"
+                                        class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                                        <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+                                            Setting boundary velocity conditions, setting fluid properties, configuring
+                                            K-epsilon turbulence solvers, inspecting velocity vector profiles and
+                                            streamline trajectories.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Meta Details Grid -->
+                            <div
+                                class="grid grid-cols-2 sm:grid-cols-4 gap-4 bg-white/[0.02] border border-white/5 p-4 rounded-xl mt-2 text-xs">
+                                <div>
+                                    <span class="block text-slate-500 mb-0.5">Venue</span>
+                                    <span class="font-semibold text-white">CAD LAB</span>
+                                </div>
+                                <div>
+                                    <span class="block text-slate-500 mb-0.5">Time</span>
+                                    <span class="font-semibold text-white">6:00 PM - 8:00 PM</span>
+                                </div>
+                                <div>
+                                    <span class="block text-slate-500 mb-0.5">Registration Fee</span>
+                                    <span class="font-semibold text-emerald-400">Free</span>
+                                </div>
+                                <div>
+                                    <span class="block text-slate-500 mb-0.5">Contacts</span>
+                                    <span class="font-semibold text-white block">Closed</span>
+                                </div>
+                            </div>
+
+                            <!-- Actions -->
+                            <div class="flex flex-wrap items-center gap-4 mt-2">
+                                <a href="#" target="_blank"
+                                    class="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 text-xs font-bold text-slate-950 uppercase tracking-widest hover:brightness-110 hover:shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all">
+                                    Coming Soon ...
+                                </a>
+                                <a href="https://www.instagram.com/p/DGFNuRTTyrJ/"
+                                    class="px-5 py-3 rounded-xl border border-white/10 hover:border-emerald-500/30 bg-white/[0.02] hover:bg-emerald-500/[0.04] text-xs font-bold text-slate-300 hover:text-emerald-400 uppercase tracking-widest transition-all">
+                                    Explore More
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </section>
+
+            <!-- Premium Bento Grid: Why Join Our Workshops? -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 w-full mt-6">
+
+                <div class="text-center mb-16">
+                    <h2 class="text-xs uppercase tracking-[0.2em] text-emerald-400 font-semibold mb-3">PROFESSIONAL
+                        ADVANCEMENT</h2>
+                    <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
+                        Why Join Our <span class="text-gradient">Workshops?</span>
+                    </h2>
+                    <p class="text-slate-400 mt-4 max-w-xl mx-auto text-sm sm:text-base font-light">
+                        Engineered to provide immediate industry readiness, comprehensive learning packages, and
+                        credentials.
+                    </p>
+                </div>
+
+                <!-- Bento Grid Layout -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-auto md:auto-rows-[220px]">
+
+                    <!-- Bento Box 1: Practical Skills (Double Columns width on desktop) -->
+                    <div
+                        class="bento-card md:col-span-2 md:row-span-2 rounded-[2rem] p-8 flex flex-col justify-between group">
+
+                        <!-- Glow highlight circle -->
+                        <div
+                            class="absolute -right-10 -bottom-10 w-44 h-44 bg-emerald-500/10 rounded-full blur-[40px] pointer-events-none group-hover:bg-emerald-500/20 transition-colors duration-500">
+                        </div>
+
+                        <!-- Top: content -->
+                        <div>
+                            <div class="flex items-center gap-3 mb-4">
+                                <div
+                                    class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center text-emerald-400">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M9.813 15.904L9 21l5.438-2.29M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.02 12.02l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
+                                    </svg>
+                                </div>
+                                <h3 class="text-xl font-bold text-white">Practical hands-on skill development</h3>
+                            </div>
+                            <p class="text-slate-300 text-sm font-light leading-relaxed max-w-lg">
+                                Rather than theoretical slides, build actual layout assets, style typography systems,
+                                and create stunning visual posters. Learn to apply visual hierarchy, color theory, and
+                                alignment rules directly in Canva to design professional creatives.
+                            </p>
+                            <br>
+                        </div>
+
+                        <!-- Bottom: Interactive Canva Designer Simulation -->
+                        <div
+                            class="w-full border border-white/5 bg-[#020d0b]/90 rounded-2xl p-4.5 relative overflow-hidden select-none h-44 flex gap-4">
+                            <!-- Canva-style Sidebar -->
+                            <div
+                                class="flex flex-col gap-3.5 border-r border-white/5 pr-3.5 text-slate-500 text-xs items-center justify-center relative z-10">
+                                <div class="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center cursor-pointer hover:bg-emerald-500/20 transition-colors"
+                                    title="Templates">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+                                    </svg>
+                                </div>
+                                <div class="w-7 h-7 rounded-lg hover:bg-white/5 flex items-center justify-center cursor-pointer transition-colors"
+                                    title="Elements">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.02 12.02l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
+                                    </svg>
+                                </div>
+                                <div class="w-7 h-7 rounded-lg hover:bg-white/5 flex items-center justify-center cursor-pointer transition-colors"
+                                    title="Text">
+                                    <span class="font-extrabold text-xs">T</span>
+                                </div>
+                            </div>
+
+                            <!-- Design Canvas Workspace -->
+                            <div
+                                class="flex-grow bg-[#010706] rounded-xl border border-white/5 relative overflow-hidden flex items-center justify-center">
+                                <!-- Canvas Top Ruler/Toolbar (Canva Mock) -->
+                                <div
+                                    class="absolute top-0 left-0 right-0 h-6 border-b border-white/5 bg-[#020d0b]/80 px-3 flex items-center justify-between text-[9px] text-slate-500">
+                                    <span>Poster Design - Untitled</span>
+                                    <div class="flex items-center gap-2">
+                                        <span class="px-1.5 py-0.5 rounded bg-white/5 text-slate-400">Outfit</span>
+                                        <span class="text-emerald-400">12pt</span>
+                                    </div>
+                                </div>
+
+                                <!-- The Poster Canvas itself -->
+                                <div
+                                    class="w-44 h-28 bg-[#011a14] rounded-lg border border-emerald-500/20 shadow-lg relative flex flex-col items-center justify-between p-2 mt-4 overflow-hidden select-none">
+                                    <!-- Poster background gradient -->
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-br from-emerald-950/40 via-black to-cyan-950/40 z-0">
+                                    </div>
+
+                                    <!-- Top decorative label -->
+                                    <div id="canva-badge"
+                                        class="relative z-10 text-[6px] tracking-[0.2em] font-bold text-cyan-400 uppercase opacity-0 transition-all duration-700">
+                                        IIChE Chapter</div>
+
+                                    <!-- Middle text title -->
+                                    <div id="canva-title"
+                                        class="relative z-10 text-[10px] font-black text-white text-gradient uppercase tracking-tight opacity-0 scale-75 transition-all duration-1000 mt-2">
+                                        Coalescence</div>
+
+                                    <!-- Bottom dates -->
+                                    <div id="canva-date"
+                                        class="relative z-10 text-[5px] text-slate-400 font-semibold tracking-wide opacity-0 transition-all duration-700">
+                                        March 15, 2026</div>
+
+                                    <!-- Mouse Cursor Pointer -->
+                                    <svg id="canva-cursor"
+                                        class="absolute z-20 w-4 h-4 text-emerald-400 fill-current drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] transition-all duration-1000"
+                                        style="top: 85%; left: 85%;" viewBox="0 0 24 24">
+                                        <path d="M4 4l12.4 12.4-4.8.6 3.4 6.8-2.2 1.1-3.4-6.8-4.8 4.2z" />
+                                    </svg>
+
+                                    <!-- Grid Align Guidelines -->
+                                    <div id="canva-guide-v"
+                                        class="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 border-l border-dashed border-pink-500/40 z-10 hidden">
+                                    </div>
+                                    <div id="canva-guide-h"
+                                        class="absolute left-0 right-0 top-1/2 -translate-y-1/2 border-t border-dashed border-pink-500/40 z-10 hidden">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bento Box 2: Expert Mentorship (1 column, 1 row) -->
+                    <div class="bento-card rounded-[2rem] p-6 flex flex-col justify-between group">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-9 h-9 rounded-xl bg-cyan-500/10 border border-cyan-500/25 flex items-center justify-center text-cyan-400">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-sm font-bold text-white uppercase tracking-wider">Expert Mentorship</h3>
+                        </div>
+
+                        <p class="text-slate-400 text-xs font-light leading-normal my-2">
+                            Interact directly with senior researchers, corporate alumni speakers, and specialists. Our
+                            guides assist you individually in setting parameters and solving compile errors.
+                        </p>
+
+                        <!-- Visual: Animated profiles mock -->
+                        <div class="flex items-center -space-x-3 mt-1.5 overflow-hidden">
+                            <div
+                                class="w-8 h-8 rounded-full border-2 border-[#010a08] bg-slate-800 flex items-center justify-center text-[10px] font-bold text-emerald-400 shadow-lg">
+                                N</div>
+                            <div
+                                class="w-8 h-8 rounded-full border-2 border-[#010a08] bg-slate-800 flex items-center justify-center text-[10px] font-bold text-cyan-400 shadow-lg">
+                                A</div>
+                            <div
+                                class="w-8 h-8 rounded-full border-2 border-[#010a08] bg-slate-800 flex items-center justify-center text-[10px] font-bold text-yellow-400 shadow-lg">
+                                R</div>
+                            <div
+                                class="w-8 h-8 rounded-full border-2 border-[#010a08] bg-emerald-500/10 border-emerald-500/35 flex items-center justify-center text-[9px] font-bold text-emerald-400 shadow-lg px-2">
+                                +10</div>
+                        </div>
+                    </div>
+
+                    <!-- Bento Box 3: Comprehensive Resources (1 column, 1 row) -->
+                    <div class="bento-card rounded-[2rem] p-6 flex flex-col justify-between group">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/25 flex items-center justify-center text-amber-400">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                                </svg>
+                            </div>
+                            <h3 class="text-sm font-bold text-white uppercase tracking-wider">Learning Kits</h3>
+                        </div>
+
+                        <p class="text-slate-400 text-xs font-light leading-normal my-2">
+                            Receive lifetime cloud folder links containing curated simulation solvers, model templates,
+                            Figma component libraries, cheat sheets, and reactor docs.
+                        </p>
+
+                        <!-- Visual: Resources checklist mockup -->
+                        <div class="flex flex-col gap-1.5 mt-1 border-t border-white/5 pt-2 text-[10px] text-slate-500">
+                            <div
+                                class="flex items-center gap-1.5 hover:text-emerald-400 transition-colors cursor-pointer group-hover:translate-x-1 transition-transform">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                <span>canva_component_system.canva</span>
+                            </div>
+                            <div
+                                class="flex items-center gap-1.5 hover:text-cyan-400 transition-colors cursor-pointer group-hover:translate-x-1 transition-transform">
+                                <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+                                <span>fluid_ansys_mesh_fluent.cas</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bento Box 4: Certificates (1 column, 2 rows) -->
+                    <div
+                        class="bento-card md:col-span-1 md:row-span-2 rounded-[2rem] p-8 flex flex-col justify-between group certificate-container">
+
+                        <!-- Glow highlight circle -->
+                        <div
+                            class="absolute -left-10 -bottom-10 w-44 h-44 bg-cyan-500/10 rounded-full blur-[40px] pointer-events-none group-hover:bg-cyan-500/20 transition-colors duration-500">
+                        </div>
+
+                        <!-- Top Content -->
+                        <div>
+                            <div class="flex items-center gap-3 mb-4">
+                                <div
+                                    class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/25 flex items-center justify-center text-cyan-400">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                                    </svg>
+                                </div>
+                                <h3 class="text-lg font-bold text-white">Verified Certifications</h3>
+                            </div>
+                            <p class="text-slate-300 text-xs font-light leading-relaxed">
+                                Validate your expertise with verified certificates of completion signed by the chapter
+                                advisors of IIChE BIT Mesra. Leverage them to enhance your resume and academic
+                                portfolio.
+                            </p>
+                        </div>
+
+                        <!-- 3D Glow Certificate Mockup -->
+                        <div
+                            class="relative w-full aspect-[1.4/1] bg-gradient-to-tr from-slate-950 to-slate-900 border border-white/10 rounded-xl p-3 shadow-2xl flex flex-col justify-between certificate-tilt select-none overflow-hidden mt-4">
+                            <!-- Background watermark vector styling -->
+                            <div
+                                class="absolute inset-0 bg-[radial-gradient(#ffffff03_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none">
+                            </div>
+
+                            <!-- Certificate Header -->
+                            <div class="flex justify-between items-start">
+                                <div class="flex items-center gap-1">
+                                    <img src="../assets/logo.png" alt="Mini Logo" class="w-4 h-4 object-contain">
+                                    <span class="text-[6px] tracking-widest text-slate-400 font-bold uppercase">IIChE
+                                        BIT MESRA</span>
+                                </div>
+                                <span class="text-[5px] text-emerald-400 font-mono tracking-wider">CERTIFICATE ID:
+                                    #98F2X</span>
+                            </div>
+
+                            <!-- Name / Text -->
+                            <div class="text-center my-1.5">
+                                <span class="text-[5px] text-slate-500 uppercase block tracking-wider">This is certified
+                                    to</span>
+                                <span
+                                    class="text-xs font-extrabold text-white block mt-0.5 font-serif text-gradient">Your
+                                    Name Here</span>
+                                <span
+                                    class="text-[4px] text-slate-400 block mt-0.5 leading-normal max-w-[120px] mx-auto">for
+                                    completing the Technical Software Workshop with distinction.</span>
+                            </div>
+
+                            <!-- Bottom Stamp / Sign -->
+                            <div
+                                class="flex justify-between items-end border-t border-white/5 pt-1.5 text-[4px] text-slate-500">
+                                <div>
+                                    <span class="block font-semibold text-slate-300">FACULTY ADVISOR</span>
+                                    <span>IIChE BIT Mesra</span>
+                                </div>
+                                <!-- Digital stamp badge graphic -->
+                                <div
+                                    class="w-5 h-5 rounded-full border border-emerald-500/30 flex items-center justify-center bg-emerald-500/[0.02] shadow-[0_0_10px_rgba(16,185,129,0.1)]">
+                                    <svg class="w-3.5 h-3.5 text-emerald-400" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="2">
+                                        <polygon
+                                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                        </polygon>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Bento Box 5: Live Doubt Clearing (1 column, 2 rows) -->
+                    <div
+                        class="bento-card md:col-span-1 md:row-span-2 rounded-[2rem] p-8 flex flex-col justify-between group">
+
+                        <!-- Glow highlight circle -->
+                        <div
+                            class="absolute -right-10 -bottom-10 w-44 h-44 bg-emerald-500/10 rounded-full blur-[40px] pointer-events-none group-hover:bg-emerald-500/20 transition-colors duration-500">
+                        </div>
+
+                        <!-- Top Content -->
+                        <div>
+                            <div class="flex items-center gap-3 mb-4">
+                                <div
+                                    class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center text-emerald-400">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                                    </svg>
+                                </div>
+                                <h3 class="text-lg font-bold text-white">Live Assistance & Debugging</h3>
+                            </div>
+                            <p class="text-slate-300 text-xs font-light leading-relaxed">
+                                Never get stuck on simulation boundary setups or compiler exceptions. Access 1-on-1
+                                support windows during lab hours where experienced mentors solve errors live.
+                            </p>
+                        </div>
+
+                        <!-- Interactive Chat Assistance Simulator -->
+                        <div
+                            class="w-full border border-white/5 bg-[#020d0b]/80 rounded-xl p-4.5 font-mono text-[9px] text-slate-300 mt-4 relative overflow-hidden flex flex-col gap-2.5 shadow-lg select-none">
+                            <div
+                                class="flex items-center gap-1.5 text-slate-500 border-b border-white/5 pb-2 mb-0.5 text-[8px] font-sans font-semibold">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                                <span>LIVE LAB CHANNEL ACTIVE</span>
+                            </div>
+                            <div
+                                class="bg-white/5 border border-white/5 p-2 rounded-lg max-w-[85%] self-start text-emerald-400">
+                                <p class="font-semibold text-[7px] text-slate-400 mb-0.5 font-sans">STUDENT</p>
+                                "ANSYS overlap mesh error at boundary?"
+                            </div>
+                            <div
+                                class="bg-emerald-500/10 border border-emerald-500/25 p-2 rounded-lg max-w-[85%] self-end text-right text-cyan-300">
+                                <p class="font-semibold text-[7px] text-emerald-400 mb-0.5 font-sans">INSTRUCTOR</p>
+                                "Refine geometry tolerance in SpaceClaim."
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Bento Box 6: Capstone Projects (1 column, 2 rows) -->
+                    <div
+                        class="bento-card md:col-span-1 md:row-span-2 rounded-[2rem] p-8 flex flex-col justify-between group">
+
+                        <!-- Glow highlight circle -->
+                        <div
+                            class="absolute -right-10 -bottom-10 w-44 h-44 bg-cyan-500/10 rounded-full blur-[40px] pointer-events-none group-hover:bg-cyan-500/20 transition-colors duration-500">
+                        </div>
+
+                        <!-- Top Content -->
+                        <div>
+                            <div class="flex items-center gap-3 mb-4">
+                                <div
+                                    class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/25 flex items-center justify-center text-cyan-400">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                                    </svg>
+                                </div>
+                                <h3 class="text-lg font-bold text-white">Project Portfolios</h3>
+                            </div>
+                            <p class="text-slate-300 text-xs font-light leading-relaxed">
+                                Complete industrial capstones at the end of each workshop. Design real reactor heat
+                                exchangers or dynamic app systems to host as distinct portfolio items on your resume.
+                            </p>
+                        </div>
+
+                        <!-- Capstone Checklist Mockup -->
+                        <div
+                            class="w-full border border-white/5 bg-[#020d0b]/80 rounded-xl p-4.5 text-[9px] text-slate-300 mt-4 relative overflow-hidden flex flex-col gap-2 shadow-lg select-none">
+                            <div
+                                class="flex items-center justify-between text-slate-500 border-b border-white/5 pb-2 mb-0.5 text-[8px] font-mono font-semibold">
+                                <span>CAPSTONE SUBMISSION</span>
+                                <span class="text-amber-400">90% COMPLETE</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-slate-300">
+                                <div
+                                    class="w-3.5 h-3.5 rounded bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-bold text-[8px]">
+                                    ✓</div>
+                                <span>Import CAD & Configure mesh</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-slate-300">
+                                <div
+                                    class="w-3.5 h-3.5 rounded bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-bold text-[8px]">
+                                    ✓</div>
+                                <span>Apply stress boundary states</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-slate-300">
+                                <div
+                                    class="w-3.5 h-3.5 rounded bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-bold text-[8px]">
+                                    ✓</div>
+                                <span>Fluent solver CFD simulation</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-slate-500">
+                                <div
+                                    class="w-3.5 h-3.5 rounded border border-white/10 flex items-center justify-center text-[8px]">
+                                </div>
+                                <span>Export plot contour results PDF</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Collapsible FAQ Section -->
+            <section class="max-w-4xl mx-auto px-4 sm:px-8 w-full mt-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-xs uppercase tracking-[0.2em] text-emerald-400 font-semibold mb-3">COMMON QUESTIONS
+                    </h2>
+                    <h2 class="text-2xl sm:text-4xl font-black text-white tracking-tight">
+                        Frequently Asked Questions
+                    </h2>
+                </div>
+
+                <div class="flex flex-col gap-4 border-t border-white/5 pt-4">
+
+                    <!-- FAQ 1 -->
+                    <div class="border-b border-white/5 pb-4">
+                        <button onclick="toggleAccordion('faq-1')"
+                            class="w-full flex items-center justify-between text-left focus:outline-none py-2">
+                            <span
+                                class="text-sm sm:text-base font-bold text-white hover:text-emerald-400 transition-colors">Do
+                                I need to pay any fee for these workshops?</span>
+                            <svg id="icon-faq-1" class="w-4 h-4 text-slate-400 transition-transform duration-300"
+                                fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div id="content-faq-1" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                            <p class="text-xs sm:text-sm text-slate-400 mt-2.5 leading-relaxed">
+                                No, registration for all these workshops (Design, MATLAB, and ANSYS) is completely free
+                                for all engineering students. You only need to register via the provided Google Forms.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 2 -->
+                    <div class="border-b border-white/5 pb-4">
+                        <button onclick="toggleAccordion('faq-2')"
+                            class="w-full flex items-center justify-between text-left focus:outline-none py-2">
+                            <span
+                                class="text-sm sm:text-base font-bold text-white hover:text-emerald-400 transition-colors">Will
+                                software licenses be provided?</span>
+                            <svg id="icon-faq-2" class="w-4 h-4 text-slate-400 transition-transform duration-300"
+                                fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div id="content-faq-2" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                            <p class="text-xs sm:text-sm text-slate-400 mt-2.5 leading-relaxed">
+                                Guidance on downloading student edition licenses (like MATLAB Student Version or ANSYS
+                                Student Version) will be shared in detail via WhatsApp groups before the commencement of
+                                the workshops.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 3 -->
+                    <div class="border-b border-white/5 pb-4">
+                        <button onclick="toggleAccordion('faq-3')"
+                            class="w-full flex items-center justify-between text-left focus:outline-none py-2">
+                            <span
+                                class="text-sm sm:text-base font-bold text-white hover:text-emerald-400 transition-colors">How
+                                and when will certificates be distributed?</span>
+                            <svg id="icon-faq-3" class="w-4 h-4 text-slate-400 transition-transform duration-300"
+                                fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div id="content-faq-3" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                            <p class="text-xs sm:text-sm text-slate-400 mt-2.5 leading-relaxed">
+                                Certificates are awarded to attendees who attend all sessions and complete the
+                                short simulation/design assignment post-workshop. Certificates will be distributed
+                                within
+                                5-7 days after evaluation.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 4 -->
+                    <div class="border-b border-white/5 pb-4">
+                        <button onclick="toggleAccordion('faq-4')"
+                            class="w-full flex items-center justify-between text-left focus:outline-none py-2">
+                            <span
+                                class="text-sm sm:text-base font-bold text-white hover:text-emerald-400 transition-colors">What
+                                can I expect from an IIChE workshop?</span>
+                            <svg id="icon-faq-4" class="w-4 h-4 text-slate-400 transition-transform duration-300"
+                                fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div id="content-faq-4" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                            <p class="text-xs sm:text-sm text-slate-400 mt-2.5 leading-relaxed">
+                                IIChE workshops provide hands-on learning, expert guidance, and practical insights into
+                                emerging technologies and engineering practices. They are designed to enhance technical
+                                skills, encourage innovation, and bridge the gap between academic concepts and
+                                real-world applications.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer Section -->
+        <footer class="bg-[#010a08]/80 border-t border-white/5 relative z-20 backdrop-blur-md mt-auto">
+            <!-- Glow Accent Line -->
+            <div class="w-full h-[1px] bg-gradient-to-r from-transparent via-emerald-500/25 to-transparent"></div>
+
+            <div class="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-3 gap-12 sm:gap-16">
+                <!-- Column 1: Logo & Tagline -->
+                <div class="flex flex-col gap-4">
+                    <div class="flex items-center gap-3">
+                        <img src="../assets/logo.png" alt="Logo"
+                            class="w-10 h-10 object-contain filter drop-shadow-[0_0_10px_rgba(16,185,129,0.3)]">
+                        <span class="text-2xl font-black tracking-tighter text-gradient">IIChE BITM</span>
+                    </div>
+                    <p class="text-slate-300 text-sm leading-relaxed max-w-sm font-light">
+                        Empowering the future of Chemical Engineering with innovation and excellence.
+                    </p>
+                    <p class="text-xs text-slate-400 tracking-wide mt-3">
+                        Designed & Developed by
+                        <a href="https://www.linkedin.com/in/raghav-agarwal-39aa842b5/" target="_blank"
+                            class="text-emerald-400 hover:text-emerald-300 transition-colors duration-300 font-semibold">Raghav
+                            Agarwal</a>
+                        &
+                        <a href="https://www.linkedin.com/in/satyam-raj-80a57627a/" target="_blank"
+                            class="text-cyan-400 hover:text-cyan-300 transition-colors duration-300 font-semibold">Satyam
+                            Raj</a>
+                    </p>
+                </div>
+                <!-- Column 3: Social Links (LinkedIn, Instagram, YouTube) -->
+                <div class="flex flex-col gap-4 md:items-center md:text-center">
+                    <h3 class="text-white font-bold text-base uppercase tracking-wider">Connect With Us</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed max-w-xs font-light">
+                        Stay connected and follow us on our social media platforms.
+                    </p>
+                    <div class="flex items-center gap-6 mt-2">
+                        <!-- LinkedIn Icon -->
+                        <a href="https://www.linkedin.com/company/iiche-bit-mesra-student-chapter/" target="_blank"
+                            class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:text-emerald-400 hover:border-emerald-500/30 hover:bg-emerald-500/5 transition-all shadow-inner active:scale-95"
+                            title="Connect on LinkedIn">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                                <path
+                                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                            </svg>
+                        </a>
+
+                        <!-- Instagram Icon -->
+                        <a href="https://www.instagram.com/iiche_bit_mesra/" target="_blank"
+                            class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:text-cyan-400 hover:border-cyan-500/30 hover:bg-cyan-500/5 transition-all shadow-inner active:scale-95"
+                            title="Connect on Instagram">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                            </svg>
+                        </a>
+
+                        <!-- YouTube Icon -->
+                        <a href="https://www.youtube.com/@IIChEBITMesra" target="_blank"
+                            class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:text-red-500 hover:border-red-500/30 hover:bg-red-500/5 transition-all shadow-inner active:scale-95"
+                            title="Connect on YouTube">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                                <path
+                                    d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.518 3.545 12 3.545 12 3.545s-7.518 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.87.508 9.388.508 9.388.508s7.518 0 9.388-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Column 3: Contact Us (Address, Email) -->
+                <div class="flex flex-col gap-4">
+                    <h3 class="text-white font-bold text-base uppercase tracking-wider">Contact Us</h3>
+                    <div class="flex flex-col gap-2.5 text-slate-400 text-sm font-light">
+                        <!-- Address section -->
+                        <div class="flex items-start gap-2.5">
+                            <svg class="w-4 h-4 mt-0.5 text-emerald-400 shrink-0" fill="none" stroke="currentColor"
+                                stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            <span>
+                                BIT Mesra<br>Ranchi, Jharkhand
+                            </span>
+                        </div>
+                        <!-- Email section -->
+                        <div class="flex items-center gap-2.5">
+                            <svg class="w-4 h-4 text-cyan-400 shrink-0" fill="none" stroke="currentColor"
+                                stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                            <a href="mailto:iiche@bitm.ac.in" class="hover:text-cyan-400 transition-colors">
+                                iiche@bitm.ac.in
+                            </a>
+                        </div>
+                    </div>
+                    <p class="text-slate-500 text-xs mt-2">
+                        &copy; 2026 IIChE BITM. All rights reserved.
+                    </p>
+                    <p class="text-slate-500 text-md mt-2">
+                        <a href="#" class="hover:text-emerald-400 transition-colors">Privacy Policy</a>
+                        &nbsp; &nbsp;
+                        <a href="#" class="hover:text-cyan-400 transition-colors">Terms of Service</a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Sub Footer Bar -->
+            <div class="border-t border-white/5 py-6 text-center text-xs text-slate-500 bg-[#010a08]/30">
+                <p>Designed with <span class="text-rose-500 animate-pulse">❤️</span> by <span
+                        class="text-gradient font-bold">IIChE BITM</span></p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Lenis Smooth Scroll -->
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+    <script src="../lenis.setup.js"></script>
+
+    <script>
+        // DOM Elements
+        const particlesContainer = document.getElementById('particles-container');
+
+        // Particle System (matching index/committee template)
+        for (let i = 0; i < 40; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            const size = Math.random() * 6 + 3;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.top = `${Math.random() * 100}%`;
+            particlesContainer.appendChild(particle);
+
+            gsap.to(particle, {
+                y: -(Math.random() * 180 + 80),
+                opacity: 0,
+                duration: Math.random() * 4 + 3,
+                repeat: -1,
+                ease: 'sine.inOut',
+                delay: Math.random() * 2
+            });
+        }
+
+        // Accordion Animation Logic
+        function toggleAccordion(id) {
+            const content = document.getElementById(`content-${id}`);
+            const icon = document.getElementById(`icon-${id}`);
+            if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+                content.style.maxHeight = '0px';
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                content.style.maxHeight = content.scrollHeight + 'px';
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        // Bento Hover Spot Light Glow mouse listener
+        document.querySelectorAll('.bento-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // Interactive Canva Design Simulation inside Bento Card
+        const canvaCursor = document.getElementById('canva-cursor');
+        const canvaTitle = document.getElementById('canva-title');
+        const canvaBadge = document.getElementById('canva-badge');
+        const canvaDate = document.getElementById('canva-date');
+        const canvaGuideV = document.getElementById('canva-guide-v');
+        const canvaGuideH = document.getElementById('canva-guide-h');
+
+        function resetCanvaAnimation() {
+            if (!canvaCursor) return;
+            canvaCursor.style.transition = 'none';
+            canvaCursor.style.top = '85%';
+            canvaCursor.style.left = '85%';
+            canvaTitle.style.opacity = '0';
+            canvaTitle.style.transform = 'scale(0.75)';
+            canvaBadge.style.opacity = '0';
+            canvaDate.style.opacity = '0';
+            canvaGuideV.style.display = 'none';
+            canvaGuideH.style.display = 'none';
+        }
+
+        function runCanvaAnimation() {
+            resetCanvaAnimation();
+
+            // Step 1: Move cursor to center title position
+            setTimeout(() => {
+                if (!canvaCursor) return;
+                canvaCursor.style.transition = 'all 1.2s ease-in-out';
+                canvaCursor.style.top = '45%';
+                canvaCursor.style.left = '45%';
+            }, 1000);
+
+            // Step 2: Title Snaps to Center with alignment guides
+            setTimeout(() => {
+                if (!canvaTitle) return;
+                canvaTitle.style.opacity = '1';
+                canvaTitle.style.transform = 'scale(1)';
+                canvaGuideV.style.display = 'block';
+                canvaGuideH.style.display = 'block';
+            }, 2300);
+
+            // Step 3: Move cursor to position the badge
+            setTimeout(() => {
+                if (!canvaCursor) return;
+                canvaGuideV.style.display = 'none';
+                canvaGuideH.style.display = 'none';
+                canvaCursor.style.top = '15%';
+                canvaCursor.style.left = '50%';
+            }, 3500);
+
+            // Step 4: Badge appears
+            setTimeout(() => {
+                if (!canvaBadge) return;
+                canvaBadge.style.opacity = '1';
+            }, 4700);
+
+            // Step 5: Move cursor to position the date
+            setTimeout(() => {
+                if (!canvaCursor) return;
+                canvaCursor.style.top = '75%';
+                canvaCursor.style.left = '50%';
+            }, 5500);
+
+            // Step 6: Date appears
+            setTimeout(() => {
+                if (!canvaDate) return;
+                canvaDate.style.opacity = '1';
+            }, 6700);
+
+            // Step 7: Cursor returns to idle position
+            setTimeout(() => {
+                if (!canvaCursor) return;
+                canvaCursor.style.top = '85%';
+                canvaCursor.style.left = '85%';
+            }, 7500);
+
+            // Loop animation
+            setTimeout(runCanvaAnimation, 10000);
+        }
+
+        // Start animation if elements exist
+        if (canvaCursor) {
+            setTimeout(runCanvaAnimation, 500);
+        }
+
+    </script>
+    <!-- Lucide Icons -->
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+    <!-- Frontend Auth Client SDK -->
+    <script src="../auth-client.js"></script>
+    <!-- Public Events Sync SDK -->
+    <script src="../events-client.js"></script>
+    <!-- Responsive Navigation -->
+    <script src="../responsive-nav.js"></script>
+    <!-- 3D Card Hover Lift & Tilt Engine -->
+    <script src="../card-3d.js"></script>
+</body>
+
+</html>

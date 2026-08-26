@@ -1,0 +1,74 @@
+# Docker Compose — Local Development Stack with Load Balancer
+# Per Section 10: 2-3 FastAPI replicas behind a load balancer.
+# Per Section 11: FastAPI + PostgreSQL + Redis via Docker Compose for local dev.
+
+services:
+  # --- PostgreSQL ---
+  db:
+    image: postgres:16-alpine
+    container_name: iiche-db
+    environment:
+      POSTGRES_USER: iiche
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in backend/.env}
+      POSTGRES_DB: iiche_db
+    ports:
+      - "127.0.0.1:5440:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U iiche -d iiche_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # --- Redis ---
+  redis:
+    image: redis:7-alpine
+    container_name: iiche-redis
+    ports:
+      - "127.0.0.1:6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # --- FastAPI Backend (scalable) ---
+  # Use: docker compose up --scale api=3
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql+asyncpg://iiche:${POSTGRES_PASSWORD}@db:5432/iiche_db
+      REDIS_URL: redis://redis:6379/0
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./app:/app/app  # Hot reload for development
+    # Dev mode: single uvicorn worker with reload (override gunicorn CMD)
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    # Production: remove the command above to use Dockerfile's gunicorn CMD
+    # deploy:
+    #   replicas: 3
+
+  # --- Nginx Load Balancer ---
+  # Distributes traffic across API replicas.
+  # Per Section 10: load balancer in front of FastAPI replicas.
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: iiche-nginx
+    ports:
+      - "8000:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - api
+
+volumes:
+  pgdata:

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <!-- High-Speed CDN & Font Preconnects -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://res.cloudinary.com">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://res.cloudinary.com">
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Login - IIChE Student Chapter BIT Mesra</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Dancing+Script:wght@600;700&family=Manrope:wght@400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#aef2bb",
+                        "outline-variant": "#c0c9be",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#79bb87",
+                        "surface-container-highest": "#d5e3fd",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#0b5229",
+                        "background": "#f8f9ff",
+                        "on-tertiary-fixed": "#191c1e",
+                        "on-primary-fixed": "#00210c",
+                        "tertiary": "#282b2d",
+                        "inverse-on-surface": "#ebf1ff",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "on-surface": "#0d1c2f",
+                        "surface": "#f8f9ff",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#f8f9ff",
+                        "surface-tint": "#2a6a3f",
+                        "primary": "#003215",
+                        "on-secondary-fixed": "#211b00",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#d5e3fd",
+                        "surface-container-low": "#eff4ff",
+                        "secondary-fixed": "#ffe24c",
+                        "outline": "#707970",
+                        "secondary-container": "#fcdf46",
+                        "secondary-fixed-dim": "#e2c62d",
+                        "inverse-primary": "#93d6a0",
+                        "surface-container": "#e6eeff",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "primary-fixed-dim": "#93d6a0",
+                        "on-secondary": "#ffffff",
+                        "surface-dim": "#ccdbf4",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-container": "#aaadaf",
+                        "on-secondary-container": "#726200",
+                        "primary-container": "#004b23",
+                        "on-background": "#0d1c2f",
+                        "secondary": "#6d5e00",
+                        "error-container": "#ffdad6",
+                        "tertiary-container": "#3e4143",
+                        "tertiary-fixed": "#e0e3e5",
+                        "inverse-surface": "#233144",
+                        "on-surface-variant": "#404941",
+                        "on-secondary-fixed-variant": "#524600",
+                        "surface-container-high": "#dde9ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "sm": "12px",
+                        "xs": "4px",
+                        "md": "24px",
+                        "lg": "48px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "max-width": "1200px",
+                        "xl": "80px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Manrope"],
+                        "label-sm": ["Manrope"],
+                        "headline-lg-mobile": ["Manrope"],
+                        "headline-md": ["Manrope"],
+                        "headline-lg": ["Manrope"],
+                        "label-md": ["Manrope"],
+                        "headline-xl": ["Manrope"],
+                        "body-md": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .shadow-ambient {
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes cardEntrance {
+            0% {
+                opacity: 0;
+                transform: translateY(40px) rotateY(-15deg) rotateX(10deg);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) rotateY(-5deg) rotateX(2deg);
+            }
+        }
+
+        .animate-entrance {
+            animation: cardEntrance 2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            opacity: 0;
+        }
+
+        /* Clean Dark Glass Card with Subtle Border & Soft Depth */
+        .login-card {
+            position: relative;
+            background: linear-gradient(165deg, rgba(16, 34, 31, 0.95) 0%, rgba(12, 26, 23, 0.96) 50%, rgba(5, 14, 12, 0.98) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 
+                0 25px 60px -15px rgba(0, 0, 0, 0.85),
+                0 0 30px -5px rgba(0, 210, 196, 0.12),
+                inset 0 1px 1px 0 rgba(255, 255, 255, 0.25);
+            transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+            overflow: hidden;
+        }
+
+        .login-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.25);
+            box-shadow: 
+                0 35px 75px -15px rgba(0, 0, 0, 0.9),
+                0 0 35px 0 rgba(0, 210, 196, 0.2),
+                inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.35);
+        }
+
+        /* Left-to-Right Single Shine Sweep (Triggers ONCE per mouse enter) */
+        @keyframes shineSweep {
+            0% {
+                transform: translateX(-150%) skewX(-25deg);
+                opacity: 0;
+            }
+            15% {
+                opacity: 0.55;
+            }
+            85% {
+                opacity: 0.55;
+            }
+            100% {
+                transform: translateX(220%) skewX(-25deg);
+                opacity: 0;
+            }
+        }
+
+        .login-card::after {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: -20%;
+            width: 70%;
+            height: 140%;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.01) 20%,
+                rgba(255, 255, 255, 0.18) 48%,
+                rgba(0, 210, 196, 0.35) 55%,
+                rgba(255, 255, 255, 0.18) 62%,
+                transparent 100%
+            );
+            transform: translateX(-150%) skewX(-25deg);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 20;
+            filter: blur(1px);
+        }
+
+        .login-card:hover::after {
+            animation: shineSweep 2.5s cubic-bezier(0.25, 1, 0.45, 1) forwards;
+        }
+    </style>
+</head>
+
+<body class="text-white font-body-lg flex flex-col min-h-screen bg-cover bg-center bg-no-repeat bg-fixed"
+    style='background-image: linear-gradient(rgba(18, 18, 18, 0.7), rgba(18, 18, 18, 0.7)), url("https://lh3.googleusercontent.com/aida-public/AB6AXuCeAWtAT3O_9B6Bc_-kn6DWcrgJZ9xsk1CvSWIiJCRz19fM7yce2MdGJpvbHgzqwI2umlKkFSV-6e4WWDRzKFxzKv00N-YkS6VEp9DECGbcoMfGtPoPNTQ3vY3r5ti_jSXZlGhQglGDRZ2ULDEA6xaTw_fCdReH_po5NJqXbX4HyyMbJKp72jBPNP-OHSw0R_RA1izzBYQ1FzIEQV_6wCKoeXCvsM859uSAlnubkBTkiqEbSXHmQka_7qE8PVRcBsnWmQs");'>
+    <!-- TopNavBar -->
+    <header class="bg-inverse-surface/20 backdrop-blur-md border-b border-outline-variant/30 w-full top-0 z-50">
+        <div
+            class="flex justify-between items-center px-margin-mobile md:px-gutter py-base max-w-max-width mx-auto w-full">
+            <div class="flex items-center gap-md">
+                <span class="font-headline-md text-headline-md font-bold">IIChE Student Chapter BIT Mesra</span>
+            </div>
+        </div>
+    </header>
+    <!-- Main Content Canvas -->
+    <main class="flex-grow flex items-center justify-center py-lg px-margin-mobile md:px-gutter">
+        <div
+            class="login-card w-full max-w-[440px] bg-gradient-to-b from-[#10221f]/95 via-[#0c1a17]/95 to-[#07110f]/98 backdrop-blur-2xl border border-[#1c3e38]/70 p-7 sm:p-9 flex flex-col rounded-[28px] animate-entrance relative overflow-hidden my-auto shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8),0_0_40px_rgba(0,210,196,0.1),inset_0_1px_1px_rgba(255,255,255,0.1)]">
+            <!-- Ambient Glow Accents -->
+            <div class="absolute -top-24 -left-24 w-52 h-52 bg-[#00d2c4]/15 rounded-full blur-3xl pointer-events-none">
+            </div>
+            <div
+                class="absolute -bottom-24 -right-24 w-52 h-52 bg-[#10b981]/15 rounded-full blur-3xl pointer-events-none">
+            </div>
+            <!-- Glowing Perimeter Node Accents (3D Bezel Dots) -->
+            <div class="absolute -top-0.5 right-14 w-2 h-2 bg-[#00d2c4] rounded-full blur-[0.5px] shadow-[0_0_8px_#00d2c4] pointer-events-none z-20"></div>
+            <div class="absolute -bottom-0.5 right-6 w-2.5 h-2.5 bg-[#10b981] rounded-full blur-[0.5px] shadow-[0_0_10px_#10b981] pointer-events-none z-20"></div>
+            <div class="absolute -bottom-0.5 left-28 w-1.5 h-1.5 bg-[#00d2c4] rounded-full blur-[0.5px] shadow-[0_0_6px_#00d2c4] pointer-events-none z-20"></div>
+
+            <!-- Card Content -->
+            <div class="relative z-10 w-full flex flex-col items-center text-center">
+                <!-- Centered IIChE Logo (Clean, Larger, No Glow/Gradient) -->
+                <div class="mb-5 sm:mb-6 flex flex-col items-center justify-center">
+                    <img alt="IIChE Logo" class="w-20 h-20 sm:w-24 sm:h-24 object-contain transition-transform duration-300 hover:scale-105" src="../assets/logo.png"/>
+                </div>
+
+                <!-- Header Heading & Text -->
+                <div class="text-center mb-6 sm:mb-7 w-full flex flex-col items-center">
+                    <h1 class="text-lg sm:text-xl font-medium text-[#e2e8f0] tracking-wide leading-relaxed max-w-sm">
+                        "kya ji kaha chale login to kijiye"
+                    </h1>
+                </div>
+
+                <!-- Responsive Login Form -->
+                <form class="w-full flex flex-col gap-4 text-left" id="loginForm"
+                    onsubmit="event.preventDefault(); alert('Successfully logged in!');">
+                    <!-- Email Input -->
+                    <div class="flex flex-col gap-1.5 w-full">
+                        <label class="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[#9bb5af]"
+                            for="email">Email Address</label>
+                        <input
+                            class="w-full bg-[#061412]/80 border border-[#1b3d36] rounded-xl px-4 py-3 text-xs sm:text-sm text-white placeholder:text-[#496962] focus:outline-none focus:border-[#00d2c4] focus:ring-2 focus:ring-[#00d2c4]/25 transition-all shadow-inner"
+                            id="email" name="email" placeholder="student@bitmesra.ac.in" type="email" required />
+                    </div>
+
+                    <!-- Password Input -->
+                    <div class="flex flex-col gap-1.5 w-full">
+                        <div class="flex justify-between items-center">
+                            <label class="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[#9bb5af]"
+                                for="password">Password</label>
+                            <a class="text-[11px] sm:text-xs font-semibold text-[#00e5d9] hover:underline hover:text-cyan-300 transition-colors"
+                                href="#">Forgot Password?</a>
+                        </div>
+                        <input
+                            class="w-full bg-[#061412]/80 border border-[#1b3d36] rounded-xl px-4 py-3 text-xs sm:text-sm text-white placeholder:text-[#496962] focus:outline-none focus:border-[#00d2c4] focus:ring-2 focus:ring-[#00d2c4]/25 transition-all shadow-inner"
+                            id="password" name="password" placeholder="••••••••" type="password" required />
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button
+                        class="w-full bg-gradient-to-r from-[#00d2c4] via-[#10b981] to-[#06b6d4] hover:from-[#00e5d9] hover:to-[#22d3ee] text-[#02120f] font-extrabold text-xs sm:text-sm py-3.5 rounded-xl transition-all shadow-[0_0_20px_rgba(0,210,196,0.3)] hover:shadow-[0_0_30px_rgba(0,210,196,0.5)] transform hover:-translate-y-0.5 mt-2 cursor-pointer"
+                        type="submit">
+                        Sign In
+                    </button>
+                </form>
+
+                <!-- Divider -->
+                <div class="w-full flex items-center my-5">
+                    <div class="flex-grow border-t border-[#1b3d36]"></div>
+                    <span class="px-3 text-[10px] sm:text-xs uppercase tracking-widest text-[#72918a]">or</span>
+                    <div class="flex-grow border-t border-[#1b3d36]"></div>
+                </div>
+
+                <!-- Google Sign In -->
+                <button onclick="alert('Google Sign-In integration ready.');"
+                    class="w-full flex items-center justify-center gap-3 bg-[#061412]/80 border border-[#1b3d36] hover:border-[#00d2c4]/50 hover:bg-[#0c2420] text-white font-semibold text-xs sm:text-sm py-3 rounded-xl transition-all cursor-pointer shadow-md"
+                    type="button">
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                            fill="#4285F4"></path>
+                        <path
+                            d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                            fill="#34A853"></path>
+                        <path
+                            d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                            fill="#FBBC05"></path>
+                        <path
+                            d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                            fill="#EA4335"></path>
+                    </svg>
+                    Sign in with Google
+                </button>
+
+                <!-- Sign Up Link -->
+                <div class="mt-5 w-full text-center">
+                    <span class="text-xs text-[#8fa8a2]">Don't have an account? </span>
+                    <a class="text-xs font-bold text-[#00e5d9] hover:underline" href="#">Create Account</a>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
