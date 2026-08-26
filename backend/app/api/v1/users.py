@@ -40,7 +40,7 @@ async def update_my_profile(
         current_user.full_name = data.full_name
 
     if data.recovery_email is not None:
-        rec_email = str(data.recovery_email).strip().lower()
+        rec_email = data.recovery_email.strip().lower()
         if rec_email == current_user.email.strip().lower():
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
