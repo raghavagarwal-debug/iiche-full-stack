@@ -44,6 +44,11 @@
                 headers['X-CSRF-Token'] = csrfToken;
             }
 
+            const sessionToken = localStorage.getItem('session_token');
+            if (sessionToken) {
+                headers['Authorization'] = `Bearer ${sessionToken}`;
+            }
+
             const timeoutMs = options.timeout || 10000;
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
@@ -96,6 +101,9 @@
 
             if (response && response.headers && response.headers.get('X-CSRF-Token')) {
                 localStorage.setItem('csrf_token', response.headers.get('X-CSRF-Token'));
+            }
+            if (response && response.headers && response.headers.get('X-Session-Token')) {
+                localStorage.setItem('session_token', response.headers.get('X-Session-Token'));
             }
 
             let data;
@@ -187,6 +195,7 @@
             }
             this.currentUser = null;
             localStorage.removeItem('csrf_token');
+            localStorage.removeItem('session_token');
             window.location.reload();
         },
 
@@ -270,6 +279,11 @@
 
     // --- UI Integration (Navbar Badge & Modals) ---
     async function setupNavbarUI() {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('token')) {
+            localStorage.setItem('session_token', urlParams.get('token'));
+        }
+
         const user = await window.IIChEAuth.checkAuth();
 
         // Check if URL has ?auth=success or ?error=

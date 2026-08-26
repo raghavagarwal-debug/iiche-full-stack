@@ -108,6 +108,7 @@ async def login(
         path="/",
     )
 
+    response.headers["X-Session-Token"] = token
     return UserResponse.model_validate(user)
 
 
@@ -476,8 +477,8 @@ async def google_callback(
     # Clear OAuth state cookie
     response.delete_cookie("oauth_state", path="/")
 
-    # Redirect to frontend
-    target_url = _get_frontend_redirect_url(request, "/pages/events.html?auth=success")
+    # Redirect to frontend with token in URL (for Bearer auth fallback)
+    target_url = _get_frontend_redirect_url(request, f"/pages/events.html?auth=success&token={token}")
     response.status_code = status.HTTP_307_TEMPORARY_REDIRECT
     response.headers["Location"] = target_url
     return response

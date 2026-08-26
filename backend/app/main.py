@@ -256,8 +256,8 @@ app.add_middleware(
     allow_origin_regex=r"https://iiche-full-stack.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
-    allow_headers=["Content-Type", "X-CSRF-Token"],
-    expose_headers=["Content-Disposition", "X-CSRF-Token"],
+    allow_headers=["Content-Type", "X-CSRF-Token", "Authorization"],
+    expose_headers=["Content-Disposition", "X-CSRF-Token", "X-Session-Token"],
 )
 
 # Request ID — Per Section 13: structured logs with request IDs

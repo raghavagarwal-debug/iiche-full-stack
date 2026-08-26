@@ -25,13 +25,19 @@ async def get_db():
 
 
 async def get_current_user(
-    session_token: str | None = Cookie(None, alias="session_token"),
+    request: Request,
+    session_token_cookie: str | None = Cookie(None, alias="session_token"),
     db: AsyncSession = Depends(get_db),
 ) -> User:
     """
-    Extract and validate the session cookie, return the authenticated user.
+    Extract and validate the session cookie or Bearer token, return the authenticated user.
     Returns 401 if the session is missing, expired, or invalid.
     """
+    session_token = session_token_cookie
+    auth_header = request.headers.get("Authorization")
+    if auth_header and auth_header.startswith("Bearer "):
+        session_token = auth_header.split(" ")[1]
+
     if not session_token:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -79,17 +85,23 @@ async def get_current_user(
 
 
 async def get_current_user_optional(
-    session_token: str | None = Cookie(None, alias="session_token"),
+    request: Request,
+    session_token_cookie: str | None = Cookie(None, alias="session_token"),
     db: AsyncSession = Depends(get_db),
 ) -> User | None:
     """
     Like get_current_user but returns None instead of raising 401.
     Used for endpoints that behave differently for authenticated vs anonymous users.
     """
+    session_token = session_token_cookie
+    auth_header = request.headers.get("Authorization")
+    if auth_header and auth_header.startswith("Bearer "):
+        session_token = auth_header.split(" ")[1]
+
     if not session_token:
         return None
     try:
-        return await get_current_user(session_token, db)
+        return await get_current_user(request, session_token_cookie, db)
     except HTTPException:
         return None
 
