@@ -11,8 +11,8 @@ cp .env.example .env
 # 2. Start all services (PostgreSQL + Redis + FastAPI)
 docker-compose up -d
 
-# 3. Run database migrations
-docker-compose exec api alembic upgrade head
+# 3. The API initializes missing tables and runs the idempotent initial-admin
+#    seed during startup.
 
 # 4. API is live at http://localhost:8000
 #    - Docs: http://localhost:8000/docs
@@ -42,9 +42,34 @@ cp .env.example .env
 # 6. Run migrations
 alembic upgrade head
 
-# 7. Start the server
+# 7. Ensure the configured initial administrator exists (safe to repeat)
+python seed_admin.py
+
+# 8. Start the server
 uvicorn app.main:app --reload --port 8000
 ```
+
+Set `INITIAL_ADMIN_EMAIL` and `INITIAL_ADMIN_PASSWORD` in the backend `.env`.
+They are read only by the backend. On startup, the application creates one
+active `admin` user with an Argon2id password hash when that normalized email is
+missing. Existing administrators are not duplicated and their password hashes
+are not replaced; a matching non-admin account is promoted and initialized once,
+then kept active and synchronized to the `admin` role.
+
+For Render, configure `DATABASE_URL`, `ENVIRONMENT=production`,
+`FRONTEND_URL`, `BACKEND_URL`, `SESSION_SECRET`, `CSRF_SECRET`,
+`INITIAL_ADMIN_EMAIL`, and `INITIAL_ADMIN_PASSWORD` as private service
+environment variables. The API startup initializes missing tables and runs the
+admin seed against the shared PostgreSQL database. If Render uses a native
+Python service and manages schema exclusively with Alembic, run
+`alembic upgrade head` as its pre-deploy/release command before starting
+`gunicorn app.main:app -c gunicorn.conf.py`.
+
+To verify the account against a deployed database, run `python seed_admin.py`
+from the backend environment (or inspect the `users` table for the configured
+normalized email and `role = 'admin'`; never print password hashes into logs).
+Then log in through `/api/v1/auth/login` and request `/api/v1/auth/me` or
+`/api/v1/admin/stats` with the returned session cookie.
 
 ## API Endpoints
 

@@ -28,6 +28,13 @@ class Settings(BaseSettings):
     frontend_url: str = "http://localhost:5500"
     backend_url: str = "http://localhost:8000"
 
+    # --- Initial administrator bootstrap ---
+    # Deliberately empty by default. Configure these only in the backend's
+    # private environment (for example Render), never in frontend code.
+    initial_admin_name: str = "Initial Administrator"
+    initial_admin_email: str = ""
+    initial_admin_password: str = ""
+
     # --- Session ---
     session_secret: str = "CHANGE_ME_TO_A_RANDOM_SECRET"
     session_expire_hours: int = 72
@@ -88,7 +95,16 @@ class Settings(BaseSettings):
 
     @model_validator(mode="after")
     def validate_production_security(self):
+        # Render may provide postgres:// or postgresql://. Normalize before
+        # validating production so the deployed engine always uses asyncpg.
+        if self.database_url.startswith("postgres://"):
+            self.database_url = self.database_url.replace("postgres://", "postgresql+asyncpg://", 1)
+        elif self.database_url.startswith("postgresql://") and "asyncpg" not in self.database_url:
+            self.database_url = self.database_url.replace("postgresql://", "postgresql+asyncpg://", 1)
+
         if self.is_production:
+            if not self.database_url.startswith("postgresql+asyncpg://"):
+                raise ValueError("DATABASE_URL must point to PostgreSQL in production")
             if self.session_secret.startswith("CHANGE_ME") or self.csrf_secret.startswith("CHANGE_ME"):
                 raise ValueError("SESSION_SECRET and CSRF_SECRET must be changed in production")
             if self.google_mock_login_enabled:
@@ -97,12 +113,12 @@ class Settings(BaseSettings):
                 raise ValueError("EMAIL_PROVIDER=console is not allowed in production")
             if not self.backend_url.strip().lower().startswith("https://"):
                 raise ValueError("BACKEND_URL must use HTTPS in production")
-
-        # Automatically fix Render's default postgres:// URL to use asyncpg
-        if self.database_url.startswith("postgres://"):
-            self.database_url = self.database_url.replace("postgres://", "postgresql+asyncpg://", 1)
-        elif self.database_url.startswith("postgresql://") and "asyncpg" not in self.database_url:
-            self.database_url = self.database_url.replace("postgresql://", "postgresql+asyncpg://", 1)
+            if not self.frontend_url.strip().lower().startswith("https://"):
+                raise ValueError("FRONTEND_URL must use HTTPS in production")
+            if not self.initial_admin_email.strip() or not self.initial_admin_password:
+                raise ValueError(
+                    "INITIAL_ADMIN_EMAIL and INITIAL_ADMIN_PASSWORD are required in production"
+                )
 
         return self
 

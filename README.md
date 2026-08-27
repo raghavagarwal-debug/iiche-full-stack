@@ -245,21 +245,24 @@ If you prefer to run Python directly without Docker containers:
 
 ---
 
-### Step 4: Create an Admin Account (Admin Dashboard Access)
+### Step 4: Configure the Initial Admin Account (Admin Dashboard Access)
 
 To access the **Admin Dashboard** (`/pages/admin.html`) and manage events/registrations:
 
-1. Open `http://localhost:5500/pages/login.html` in your browser and register a new user account (or use an existing account).
-2. Open a terminal in the `backend/` directory (with virtual environment active or inside Docker container).
-3. Run the `make_admin.py` CLI script with your registered email (and optionally specify a new password):
+1. Copy `backend/.env.example` to `backend/.env` and set the backend-only values
+   `INITIAL_ADMIN_EMAIL` and `INITIAL_ADMIN_PASSWORD` to the credentials you
+   want to use. Do not commit this populated file.
+2. Start the backend or run the idempotent bootstrap command from `backend/`:
    ```bash
-   python make_admin.py your_email@example.com [new_password]
+   alembic upgrade head
+   python seed_admin.py
    ```
-   *Example:*
-   ```bash
-   python make_admin.py satyamkumar29848@gmail.com admin123
-   ```
-4. Log in on the website with your email and password. You can now access `http://localhost:5500/pages/admin.html` with full administrative privileges!
+3. Log in on the website with those credentials. The server creates the
+   account in PostgreSQL/SQLite using the existing Argon2id password hasher and
+   issues the same database-backed session cookie as every other user.
+4. Open `http://localhost:5500/pages/admin.html`. The page checks the server's
+   authenticated user and role, and every admin API endpoint checks the role
+   independently.
 
 ---
 

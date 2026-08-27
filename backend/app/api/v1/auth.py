@@ -35,6 +35,11 @@ logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
 
+def _cookie_samesite() -> str:
+    """Use cross-site cookies in HTTPS production and safe local cookies in dev."""
+    return "none" if settings.secure_cookies else "lax"
+
+
 # --- Signup ---
 
 @router.post("/signup", response_model=MessageResponse, status_code=status.HTTP_201_CREATED)
@@ -91,7 +96,7 @@ async def login(
         value=token,
         httponly=True,
         secure=settings.secure_cookies,
-        samesite="none",
+        samesite=_cookie_samesite(),
         max_age=settings.session_expire_hours * 3600,
         path="/",
     )
@@ -103,12 +108,11 @@ async def login(
         value=csrf_token,
         httponly=False,  # Frontend needs to read this
         secure=settings.secure_cookies,
-        samesite="none",
+        samesite=_cookie_samesite(),
         max_age=settings.session_expire_hours * 3600,
         path="/",
     )
 
-    response.headers["X-Session-Token"] = token
     return UserResponse.model_validate(user)
 
 
@@ -131,14 +135,14 @@ async def logout(
         path="/",
         secure=settings.secure_cookies,
         httponly=True,
-        samesite="none",
+        samesite=_cookie_samesite(),
     )
     response.delete_cookie(
         "csrf_token",
         path="/",
         secure=settings.secure_cookies,
         httponly=False,
-        samesite="none",
+        samesite=_cookie_samesite(),
     )
 
     return MessageResponse(message="Logged out successfully")
@@ -351,7 +355,7 @@ async def resend_otp(
 
 def _get_frontend_redirect_url(request: Request, path: str = "/pages/events.html?auth=success") -> str:
     """Build redirects only from the configured frontend origin."""
-    return f"{settings.frontend_url}{path}"
+    return f"{settings.frontend_url.rstrip('/')}{path}"
 
 
 # --- Google OAuth ---
@@ -380,7 +384,7 @@ async def google_login(
             value=token,
             httponly=True,
             secure=settings.secure_cookies,
-            samesite="none",
+            samesite=_cookie_samesite(),
             max_age=settings.session_expire_hours * 3600,
             path="/",
         )
@@ -392,7 +396,7 @@ async def google_login(
             value=csrf_token,
             httponly=False,
             secure=settings.secure_cookies,
-            samesite="none",
+            samesite=_cookie_samesite(),
             max_age=settings.session_expire_hours * 3600,
             path="/",
         )
@@ -410,7 +414,7 @@ async def google_login(
         value=state,
         httponly=True,
         secure=settings.secure_cookies,
-        samesite="none",
+        samesite=_cookie_samesite(),
         max_age=600,  # 10 minutes
         path="/",
     )
@@ -457,7 +461,7 @@ async def google_callback(
         value=token,
         httponly=True,
         secure=settings.secure_cookies,
-        samesite="none",
+        samesite=_cookie_samesite(),
         max_age=settings.session_expire_hours * 3600,
         path="/",
     )
@@ -469,7 +473,7 @@ async def google_callback(
         value=csrf_token,
         httponly=False,
         secure=settings.secure_cookies,
-        samesite="none",
+        samesite=_cookie_samesite(),
         max_age=settings.session_expire_hours * 3600,
         path="/",
     )
@@ -477,8 +481,9 @@ async def google_callback(
     # Clear OAuth state cookie
     response.delete_cookie("oauth_state", path="/")
 
-    # Redirect to frontend with token in URL (for Bearer auth fallback)
-    target_url = _get_frontend_redirect_url(request, f"/pages/events.html?auth=success&token={token}")
+    # The session cookie is sent by the browser on subsequent credentialed
+    # requests; never put the session token in a redirect URL.
+    target_url = _get_frontend_redirect_url(request, "/pages/events.html?auth=success")
     response.status_code = status.HTTP_307_TEMPORARY_REDIRECT
     response.headers["Location"] = target_url
     return response

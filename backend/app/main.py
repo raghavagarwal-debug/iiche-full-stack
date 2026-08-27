@@ -51,6 +51,13 @@ async def _seed_default_events():
     from app.models.user import User
 
     async with async_session_factory() as session:
+        # Multiple Gunicorn workers can start together. Serialize the event
+        # bootstrap on PostgreSQL so only one worker inserts the initial rows.
+        if "sqlite" not in settings.database_url:
+            await session.execute(
+                text("SELECT pg_advisory_xact_lock(hashtext('iiche:default_events_seed'))")
+            )
+
         # 1. Check if initial setup was already completed
         setting_res = await session.execute(
             select(SystemSetting).where(SystemSetting.key == "initial_events_seeded")
@@ -145,6 +152,15 @@ async def _seed_default_events():
         logger.info("Seeded default IIChE events into fresh database")
 
 
+async def _seed_initial_admin():
+    """Ensure the configured administrator exists in the shared database."""
+    from app.db.session import async_session_factory
+    from app.services.bootstrap_service import ensure_initial_admin
+
+    async with async_session_factory() as session:
+        await ensure_initial_admin(session)
+
+
 # --- Lifespan ---
 
 @asynccontextmanager
@@ -176,9 +192,13 @@ async def lifespan(app: FastAPI):
                 pass
 
         logger.info("Database tables initialized successfully")
+        # Events must be seeded first: the event seed intentionally treats any
+        # existing user as an already-used database.
         await _seed_default_events()
+        await _seed_initial_admin()
     except Exception as e:
-        logger.warning(f"Database initialization check: {e}")
+        logger.exception("Database initialization failed: %s", e)
+        raise
 
     logger.info(f"Frontend URL: {settings.frontend_url}")
     logger.info(f"Backend URL: {settings.backend_url}")
@@ -234,7 +254,7 @@ app.add_middleware(RequestBodyLimitMiddleware)
 # Per Section 12: CORS restricted to the exact real frontend origin
 # Dev-mode origins are kept for local development convenience
 _cors_origins = [
-    settings.frontend_url,
+    settings.frontend_url.rstrip("/"),
 ]
 # Always allow common local dev ports for frontend developers testing against the live backend
 _cors_origins.extend([
@@ -257,7 +277,7 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
     allow_headers=["Content-Type", "X-CSRF-Token", "Authorization"],
-    expose_headers=["Content-Disposition", "X-CSRF-Token", "X-Session-Token"],
+    expose_headers=["Content-Disposition", "X-CSRF-Token"],
 )
 
 # Request ID — Per Section 13: structured logs with request IDs

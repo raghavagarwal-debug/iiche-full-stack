@@ -82,14 +82,14 @@ async def delete_my_account(
         path="/",
         secure=settings.secure_cookies,
         httponly=True,
-        samesite="none",
+        samesite="none" if settings.secure_cookies else "lax",
     )
     response.delete_cookie(
         key="csrf_token",
         path="/",
         secure=settings.secure_cookies,
         httponly=False,
-        samesite="none",
+        samesite="none" if settings.secure_cookies else "lax",
     )
 
     return MessageResponse(message="Your account has been deleted successfully.")

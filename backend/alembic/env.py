@@ -22,6 +22,7 @@ from app.models.session import Session  # noqa: F401
 from app.models.otp import PasswordResetOTP  # noqa: F401
 from app.models.event import Event  # noqa: F401
 from app.models.registration import Registration  # noqa: F401
+from app.models.system_setting import SystemSetting  # noqa: F401
 
 # Alembic Config object
 config = context.config

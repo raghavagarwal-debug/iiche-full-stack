@@ -13,11 +13,20 @@
             .replace(/'/g, '&#039;');
     }
 
-    // Use the production backend URL on Render
-    let API_BASE = window.IIChE_API_BASE;
+    // Use an explicitly configured public API base when provided. For local
+    // development, preserve the browser's hostname so localhost and
+    // 127.0.0.1 do not create different SameSite cookie contexts.
+    function normalizeApiBase(value) {
+        return String(value || '').trim().replace(/\/+$/, '');
+    }
+
+    let API_BASE = normalizeApiBase(window.IIChE_API_BASE);
     if (!API_BASE) {
+        const localHost = window.location.hostname === '127.0.0.1'
+            ? '127.0.0.1'
+            : 'localhost';
         if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-            API_BASE = 'http://localhost:8000/api/v1';
+            API_BASE = `http://${localHost}:8000/api/v1`;
         } else {
             API_BASE = 'https://iiche-full-stack.onrender.com/api/v1';
         }
@@ -27,7 +36,7 @@
     window.IIChEAuth = {
         currentUser: null,
         get apiBase() { return API_BASE; },
-        set apiBase(val) { API_BASE = val; },
+        set apiBase(val) { API_BASE = normalizeApiBase(val); },
 
         // --- API Helper ---
         async request(endpoint, options = {}) {
@@ -51,10 +60,9 @@
                 headers['X-CSRF-Token'] = csrfToken;
             }
 
-            const sessionToken = localStorage.getItem('session_token');
-            if (sessionToken) {
-                headers['Authorization'] = `Bearer ${sessionToken}`;
-            }
+            // Authentication is sourced from the backend's HttpOnly cookie.
+            // The server-side session table remains the source of truth; do
+            // not persist session credentials in browser storage.
 
             const timeoutMs = options.timeout || 10000;
             const controller = new AbortController();
@@ -109,10 +117,6 @@
             if (response && response.headers && response.headers.get('X-CSRF-Token')) {
                 localStorage.setItem('csrf_token', response.headers.get('X-CSRF-Token'));
             }
-            if (response && response.headers && response.headers.get('X-Session-Token')) {
-                localStorage.setItem('session_token', response.headers.get('X-Session-Token'));
-            }
-
             let data;
             try {
                 data = await response.json();
@@ -173,12 +177,16 @@
         },
 
         async login(email, password) {
-            const user = await this.request('/auth/login', {
+            await this.request('/auth/login', {
                 method: 'POST',
                 body: { email, password }
             });
-            this.currentUser = user;
-            return user;
+            // Do not redirect until the browser has actually stored and sent
+            // the session cookie. This prevents a false login success when
+            // CORS/cookie configuration is wrong.
+            const authenticatedUser = await this.request('/auth/me');
+            this.currentUser = authenticatedUser;
+            return authenticatedUser;
         },
 
         async signup(fullName, email, password, confirmPassword, recoveryEmail) {
@@ -202,7 +210,6 @@
             }
             this.currentUser = null;
             localStorage.removeItem('csrf_token');
-            localStorage.removeItem('session_token');
             window.location.reload();
         },
 
@@ -228,7 +235,6 @@
             });
             this.currentUser = null;
             localStorage.removeItem('csrf_token');
-            localStorage.removeItem('session_token');
             window.location.reload();
             return res;
         },
@@ -290,10 +296,6 @@
     // --- UI Integration (Navbar Badge & Modals) ---
     async function setupNavbarUI() {
         const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.has('token')) {
-            localStorage.setItem('session_token', urlParams.get('token'));
-        }
-
         const user = await window.IIChEAuth.checkAuth();
 
         // Check if URL has ?auth=success or ?error=
