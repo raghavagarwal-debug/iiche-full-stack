@@ -220,6 +220,9 @@
                 method: 'DELETE'
             });
             this.currentUser = null;
+            localStorage.removeItem('csrf_token');
+            localStorage.removeItem('session_token');
+            window.location.reload();
             return res;
         },
 
