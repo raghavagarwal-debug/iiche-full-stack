@@ -4,5 +4,6 @@
   "python.analysis.extraPaths": [
     "${workspaceFolder}/backend/venv/Lib/site-packages",
     "${workspaceFolder}/backend"
-  ]
+  ],
+  "liveServer.settings.port": 5501
 }
