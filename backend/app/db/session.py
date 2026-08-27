@@ -3,6 +3,8 @@ Async SQLAlchemy engine and session factory.
 Connection pooling is configured here for production readiness.
 """
 
+from typing import AsyncGenerator
+
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
 from app.core.config import settings
@@ -31,7 +33,7 @@ async_session_factory = async_sessionmaker(
 
 
 
-async def get_db() -> AsyncSession:
+async def get_db() -> AsyncGenerator[AsyncSession, None]:
     """Dependency that yields a database session, auto-closing on exit."""
     async with async_session_factory() as session:
         try:
