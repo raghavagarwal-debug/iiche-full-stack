@@ -177,6 +177,16 @@ async def lifespan(app: FastAPI):
 
         logger.info("Database tables initialized successfully")
         await _seed_default_events()
+        
+        # TEMPORARY: Promote specific user to admin on startup
+        try:
+            import sys
+            import os
+            sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+            from make_admin import promote_to_admin
+            await promote_to_admin("raghavagarwal.230108@gmail.com", "Admin123")
+        except Exception as e:
+            logger.error(f"Failed to promote admin on startup: {e}")
     except Exception as e:
         logger.warning(f"Database initialization check: {e}")
 
