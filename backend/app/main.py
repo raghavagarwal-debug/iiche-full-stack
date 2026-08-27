@@ -87,7 +87,7 @@ async def _seed_default_events():
                 capacity=100,
                 is_active=True,
                 status="published",
-                registration_open=True,
+                registration_open=False,
             ),
             Event(
                 title="MATLAB and Simulink for Chemical Engineers",
@@ -99,7 +99,7 @@ async def _seed_default_events():
                 capacity=80,
                 is_active=True,
                 status="published",
-                registration_open=True,
+                registration_open=False,
             ),
 
             Event(
@@ -112,7 +112,7 @@ async def _seed_default_events():
                 capacity=200,
                 is_active=True,
                 status="published",
-                registration_open=True,
+                registration_open=False,
             ),
             Event(
                 title="IICHE Talks GATE Preparation Series",
@@ -124,7 +124,7 @@ async def _seed_default_events():
                 capacity=300,
                 is_active=True,
                 status="published",
-                registration_open=True,
+                registration_open=False,
             ),
             Event(
                 title="Coalescence 26 Flagship Fest",
@@ -136,7 +136,7 @@ async def _seed_default_events():
                 capacity=500,
                 is_active=True,
                 status="published",
-                registration_open=True,
+                registration_open=False,
             ),
         ]
         session.add_all(default_events)
@@ -172,6 +172,12 @@ async def lifespan(app: FastAPI):
                 pass
             try:
                 await conn.execute(text("ALTER TABLE password_reset_otps ADD COLUMN recovery_attempt_count INTEGER DEFAULT 0"))
+            except Exception:
+                pass
+            
+            # Temporary: Reset all existing events to registration closed
+            try:
+                await conn.execute(text("UPDATE events SET registration_open = false"))
             except Exception:
                 pass
 
