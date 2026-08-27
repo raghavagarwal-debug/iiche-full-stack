@@ -14,7 +14,14 @@
     }
 
     // Use the production backend URL on Render
-    let API_BASE = window.IIChE_API_BASE || 'https://iiche-full-stack.onrender.com/api/v1';
+    let API_BASE = window.IIChE_API_BASE;
+    if (!API_BASE) {
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            API_BASE = 'http://localhost:8000/api/v1';
+        } else {
+            API_BASE = 'https://iiche-full-stack.onrender.com/api/v1';
+        }
+    }
 
     // Global auth state object
     window.IIChEAuth = {
