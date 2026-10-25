@@ -311,7 +311,7 @@ async def health():
 
 
 @app.get("/ready")
-async def readiness():
+async def readiness(request: Request):
     """
     Readiness check — verifies DB and Redis connections.
     Per Section 9: used by load balancers/orchestration.
@@ -339,7 +339,15 @@ async def readiness():
         checks["status"] = "not_ready"
 
     status_code = 200 if checks["status"] == "ready" else 503
-    return JSONResponse(content=checks, status_code=status_code)
+    origin = request.headers.get("origin")
+    headers = {}
+    if origin:
+        import re
+        if origin in _cors_origins or re.match(r"https://iiche-full-stack.*\.vercel\.app", origin):
+            headers["Access-Control-Allow-Origin"] = origin
+            headers["Access-Control-Allow-Credentials"] = "true"
+
+    return JSONResponse(content=checks, status_code=status_code, headers=headers)
 
 
 # --- Global Exception Handler ---
@@ -351,7 +359,16 @@ async def global_exception_handler(request: Request, exc: Exception):
     Per Section 12: generic error messages.
     """
     logger.error(f"Unhandled exception: {exc}", exc_info=True)
+    origin = request.headers.get("origin")
+    headers = {}
+    if origin:
+        import re
+        if origin in _cors_origins or re.match(r"https://iiche-full-stack.*\.vercel\.app", origin):
+            headers["Access-Control-Allow-Origin"] = origin
+            headers["Access-Control-Allow-Credentials"] = "true"
+
     return JSONResponse(
         status_code=500,
         content={"detail": f"An internal error occurred: {str(exc)}"},
+        headers=headers,
     )
