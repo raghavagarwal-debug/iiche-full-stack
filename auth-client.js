@@ -304,6 +304,7 @@
 
         renderNavbarUserBadge(user);
         injectProfileModalCSS();
+        updateMobileDrawerUser(user);
     }
 
     function getPagesUrl(pageName) {
@@ -333,6 +334,7 @@
             if (loginBtn) {
                 loginBtn.style.display = '';
             }
+            updateMobileDrawerUser(null);
             return;
         }
 
@@ -478,19 +480,126 @@
         updateMobileDrawerUser(user);
     }
 
+    let mobileDrawerRetryTimer = null;
+    let mobileDrawerRetryCount = 0;
+
     function updateMobileDrawerUser(user) {
         const drawer = document.getElementById('mobile-menu-drawer');
-        if (!drawer) return;
+        if (!drawer) {
+            if (mobileDrawerRetryCount < 30) {
+                mobileDrawerRetryCount++;
+                clearTimeout(mobileDrawerRetryTimer);
+                mobileDrawerRetryTimer = setTimeout(() => {
+                    updateMobileDrawerUser(user !== undefined ? user : window.IIChEAuth?.currentUser);
+                }, 120);
+            }
+            return;
+        }
 
-        const mobileLoginLink = drawer.querySelector('[data-target="login"]');
-        if (mobileLoginLink && user) {
-            mobileLoginLink.innerHTML = `
-                <i data-lucide="user" class="w-4 h-4"></i> ${escapeHtml(user.full_name.split(' ')[0])} (Logged In)
-            `;
-            mobileLoginLink.href = '#';
-            mobileLoginLink.addEventListener('click', (e) => {
-                e.preventDefault();
+        const loginLink = drawer.querySelector('[data-target="login"]');
+        let authSection = drawer.querySelector('#mobile-auth-section');
+
+        if (!user) {
+            if (loginLink) {
+                loginLink.style.display = '';
+            }
+            if (authSection) {
+                authSection.remove();
+            }
+            return;
+        }
+
+        // Hide standard login link when user is authenticated
+        if (loginLink) {
+            loginLink.style.display = 'none';
+        }
+
+        // Clean up previous auth section if already present
+        if (authSection) {
+            authSection.remove();
+        }
+
+        const initials = user.full_name
+            ? user.full_name
+                .split(' ')
+                .filter(Boolean)
+                .map(n => n[0])
+                .join('')
+                .toUpperCase()
+                .substring(0, 2)
+            : 'U';
+        const firstName = (user.full_name && user.full_name.split(' ')[0]) || 'User';
+
+        authSection = document.createElement('div');
+        authSection.id = 'mobile-auth-section';
+        authSection.className = 'mt-5 pt-5 border-t border-white/10 flex flex-col gap-3 normal-case tracking-normal';
+        authSection.innerHTML = `
+            <div class="flex items-center gap-3 p-3 rounded-2xl bg-white/[0.04] border border-white/10 shadow-inner">
+                <span class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 to-cyan-400 text-[#010a08] font-black flex items-center justify-center text-sm shadow-md shrink-0">
+                    ${escapeHtml(initials)}
+                </span>
+                <div class="flex flex-col min-w-0">
+                    <span class="text-sm font-bold text-white truncate">${escapeHtml(user.full_name || firstName)}</span>
+                    <span class="text-[11px] text-slate-400 truncate">${escapeHtml(user.email || '')}</span>
+                    <span class="text-[9px] uppercase font-bold tracking-wider px-2 py-0.5 mt-1 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 w-max">
+                        ${escapeHtml(user.role || 'user')}
+                    </span>
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-2 text-xs font-semibold">
+                ${user.role === 'admin' ? `
+                <a href="${getPagesUrl('admin.html')}" class="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-amber-300 hover:text-amber-200 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 transition-all text-left">
+                    <svg class="w-4 h-4 text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    <span>Admin Dashboard</span>
+                </a>
+                ` : ''}
+
+                <button id="mobile-my-events-btn" type="button" class="w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/5 transition-all text-left cursor-pointer focus:outline-none">
+                    <svg class="w-4 h-4 text-cyan-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    <span>My Registered Events</span>
+                </button>
+
+                <button id="mobile-profile-btn" type="button" class="w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/5 transition-all text-left cursor-pointer focus:outline-none">
+                    <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                    <span>Edit Profile & Recovery</span>
+                </button>
+
+                <button id="mobile-logout-btn" type="button" class="w-full mt-2 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-red-500/15 hover:bg-red-500/25 border border-red-500/30 text-red-400 hover:text-red-300 font-bold text-xs uppercase tracking-wider transition-all cursor-pointer shadow-sm focus:outline-none">
+                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                    <span>Logout</span>
+                </button>
+            </div>
+        `;
+
+        drawer.appendChild(authSection);
+
+        const closeDrawer = () => {
+            const closeBtn = document.getElementById('mobile-menu-close');
+            if (closeBtn) closeBtn.click();
+        };
+
+        const myEventsBtn = authSection.querySelector('#mobile-my-events-btn');
+        if (myEventsBtn) {
+            myEventsBtn.addEventListener('click', () => {
+                closeDrawer();
+                openMyEventsModal();
+            });
+        }
+
+        const profileBtn = authSection.querySelector('#mobile-profile-btn');
+        if (profileBtn) {
+            profileBtn.addEventListener('click', () => {
+                closeDrawer();
                 openEditNameModal(user);
+            });
+        }
+
+        const logoutBtn = authSection.querySelector('#mobile-logout-btn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', () => {
+                closeDrawer();
+                window.IIChEAuth.logout();
             });
         }
     }
@@ -770,6 +879,16 @@
         `;
         document.head.appendChild(style);
     }
+
+    window.IIChEAuth.updateMobileNav = function() {
+        updateMobileDrawerUser(window.IIChEAuth.currentUser);
+    };
+
+    document.addEventListener('mobileNavReady', () => {
+        if (window.IIChEAuth) {
+            updateMobileDrawerUser(window.IIChEAuth.currentUser);
+        }
+    });
 
     // Auto init on DOM ready
     if (document.readyState === 'loading') {

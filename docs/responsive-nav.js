@@ -139,27 +139,30 @@
         document.body.appendChild(overlay);
         const drawer = document.createElement('div');
         drawer.id = 'mobile-menu-drawer';
-        drawer.className = 'fixed top-0 right-0 h-full w-[80%] max-w-[340px] bg-[#010a08]/85 backdrop-blur-2xl border-l border-white/10 z-[99] transform translate-x-full flex flex-col p-8 rounded-l-3xl';
+        drawer.className = 'fixed top-0 right-0 h-full w-[85%] max-w-[340px] bg-[#010a08]/95 backdrop-blur-2xl border-l border-white/10 z-[99] transform translate-x-full flex flex-col p-6 sm:p-8 rounded-l-3xl overflow-y-auto overflow-x-hidden';
 
         drawer.innerHTML = `
             <!-- Header with Close Icon -->
-            <div class="flex justify-between items-center mb-12">
+            <div class="flex justify-between items-center mb-6 sm:mb-8">
                 <div class="flex items-center gap-3">
                     <img src="${logoPath}" alt="Logo" class="w-9 h-9 object-contain">
                     <span class="text-xl font-black tracking-tighter text-gradient">IIChE</span>
                 </div>
-                <button id="mobile-menu-close" class="p-2 text-slate-300 hover:text-emerald-400 focus:outline-none transition-colors" aria-label="Close menu">
+                <button id="mobile-menu-close" class="p-2 text-slate-300 hover:text-emerald-400 focus:outline-none transition-colors cursor-pointer" aria-label="Close menu">
                     <i data-lucide="x" class="w-7 h-7"></i>
                 </button>
             </div>
             <!-- Navigation Links -->
-            <div class="flex flex-col gap-6 text-sm font-bold uppercase tracking-widest">
+            <div class="flex flex-col gap-5 text-sm font-bold uppercase tracking-widest">
                 <a href="${homeUrl}" class="mobile-nav-link text-slate-300 py-2 border-b border-white/5 transition-all" data-target="home">Home</a>
                 <a href="${committeeUrl}" class="mobile-nav-link text-slate-300 py-2 border-b border-white/5 transition-all" data-target="committee">Committee</a>
                 <a href="${departmentsUrl}" class="mobile-nav-link text-slate-300 py-2 border-b border-white/5 transition-all" data-target="departments">Departments</a>
                 <a href="${eventsUrl}" class="mobile-nav-link text-slate-300 py-2 border-b border-white/5 transition-all" data-target="events">Events</a>
                 <a href="${blogsUrl}" class="mobile-nav-link text-slate-300 py-2 border-b border-white/5 transition-all" data-target="blogs">Blogs</a>
                 <a href="${contactUrl}" class="mobile-nav-link text-slate-300 py-2 border-b border-white/5 transition-all" data-target="contact">Contact Us</a>
+                <a href="${loginUrl}" class="mobile-nav-link text-emerald-400 font-black py-2 border-b border-white/5 transition-all flex items-center gap-2" data-target="login">
+                    <i data-lucide="log-in" class="w-4 h-4"></i> Login
+                </a>
             </div>
         `;
         document.body.appendChild(drawer);
@@ -174,6 +177,9 @@
         function openMenu() {
             if (isOpen) return;
             isOpen = true;
+            if (window.IIChEAuth && typeof window.IIChEAuth.updateMobileNav === 'function') {
+                window.IIChEAuth.updateMobileNav();
+            }
             document.body.classList.add('mobile-nav-lock');
             const mainContent = document.getElementById('main-content');
             if (mainContent) {
@@ -407,6 +413,11 @@
                 }
             }
         }
+
+        if (window.IIChEAuth && typeof window.IIChEAuth.updateMobileNav === 'function') {
+            window.IIChEAuth.updateMobileNav();
+        }
+        document.dispatchEvent(new CustomEvent('mobileNavReady'));
     }
     const isHome = !path.includes('/pages/') && !path.includes('/committee/') && !path.includes('/events/');
     if (isHome) {
