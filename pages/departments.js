@@ -250,7 +250,7 @@ const deptData = {
             {
                 name: "Raghav Agarwal",
                 designation: "Technical Member",
-                image: "https://res.cloudinary.com/dobshyhdz/image/upload/v1782408159/WhatsApp_Image_2026-06-25_at_22.50.38_yy20rt.jpg",
+                image: "https://res.cloudinary.com/dobshyhdz/image/upload/v1793781961/WhatsApp_Image_2026-11-04_at_14.15.30_clhdcm.jpg",
                 linkedin: "https://www.linkedin.com/in/raghav-agarwal-39aa842b5/",
                 instagram: "https://www.instagram.com/raghav__agarwal08/"
             }
