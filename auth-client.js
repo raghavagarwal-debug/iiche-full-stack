@@ -322,8 +322,34 @@
         const nav = document.querySelector('nav');
         if (!nav) return;
 
+        // Locate desktop links container
+        const desktopContainer = nav.querySelector('div.hidden.md\\:flex') || 
+                                 nav.querySelector('div.hidden.lg\\:flex') || 
+                                 nav.querySelector('div[class*="hidden"][class*="flex"]');
+
+        if (desktopContainer && desktopContainer.classList.contains('gap-12')) {
+            desktopContainer.classList.remove('gap-12');
+            desktopContainer.classList.add('gap-6', 'lg:gap-8');
+        }
+
         // Find login button anywhere in navbar (matches login.html, pages/login.html, ../pages/login.html, etc.)
-        const loginBtn = nav.querySelector('a[href*="login.html"]');
+        let loginBtn = nav.querySelector('a[href*="login.html"]');
+
+        // If login button is missing in HTML, inject it into desktop nav container
+        if (!loginBtn && desktopContainer) {
+            loginBtn = document.createElement('a');
+            loginBtn.href = getPagesUrl('login.html');
+            loginBtn.className = 'px-4 py-2 rounded-xl text-xs font-extrabold uppercase tracking-wider text-[#010a08] bg-gradient-to-r from-emerald-400 to-cyan-400 hover:from-emerald-300 hover:to-cyan-300 shadow-[0_0_15px_rgba(16,185,129,0.4)] hover:shadow-[0_0_25px_rgba(16,185,129,0.7)] transition-all transform hover:-translate-y-0.5 flex items-center gap-1.5 ml-2 cursor-pointer';
+            loginBtn.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                    <polyline points="10 17 15 12 10 7"></polyline>
+                    <line x1="15" y1="12" x2="3" y2="12"></line>
+                </svg>
+                Login
+            `;
+            desktopContainer.appendChild(loginBtn);
+        }
 
         // Remove any existing badge
         const existingBadge = document.getElementById('user-profile-badge');
@@ -416,8 +442,10 @@
 
         if (loginBtn && loginBtn.parentNode) {
             loginBtn.parentNode.insertBefore(badge, loginBtn);
+        } else if (desktopContainer) {
+            desktopContainer.appendChild(badge);
         } else {
-            const container = nav.querySelector('div.hidden.md\\:flex') || nav.querySelector('div.hidden.lg\\:flex') || nav.querySelector('div.flex.items-center') || nav;
+            const container = nav.querySelector('div.hidden.md\\:flex') || nav.querySelector('div.hidden.lg\\:flex') || nav;
             container.appendChild(badge);
         }
 
