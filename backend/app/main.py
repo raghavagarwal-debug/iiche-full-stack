@@ -4,6 +4,8 @@ Per Section 3: browser → CDN → load balancer → this FastAPI app → DB/Red
 Per Section 9: all routes under /api/v1/.
 """
 
+from __future__ import annotations
+
 import logging
 from contextlib import asynccontextmanager
 
@@ -153,48 +155,63 @@ async def lifespan(app: FastAPI):
     logger.info("Starting IIChE Backend...")
     await init_redis()
 
-    # Ensure all tables exist
+    # Ensure all tables exist in their own committed transaction
     try:
         async with engine.begin() as conn:
             await conn.run_sync(Base.metadata.create_all)
-            # Safe column additions if tables were created previously
-            try:
-                await conn.execute(text("ALTER TABLE users ADD COLUMN recovery_email VARCHAR(320)"))
-            except Exception:
-                pass
-            try:
-                await conn.execute(text("ALTER TABLE users ADD COLUMN recovery_email_verified_at TIMESTAMP"))
-            except Exception:
-                pass
-            try:
-                await conn.execute(text("ALTER TABLE password_reset_otps ADD COLUMN stage VARCHAR(30) DEFAULT 'email_submitted'"))
-            except Exception:
-                pass
-            try:
-                await conn.execute(text("ALTER TABLE password_reset_otps ADD COLUMN recovery_attempt_count INTEGER DEFAULT 0"))
-            except Exception:
-                pass
-            
-            # Temporary: Reset all existing events to registration closed
-            try:
-                await conn.execute(text("UPDATE events SET registration_open = false"))
-            except Exception:
-                pass
-
         logger.info("Database tables initialized successfully")
-        await _seed_default_events()
-        
-        # TEMPORARY: Promote specific user to admin on startup
-        try:
-            import sys
-            import os
-            sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-            from make_admin import promote_to_admin
-            await promote_to_admin("raghavagarwal.230108@gmail.com", "Admin123")
-        except Exception as e:
-            logger.error(f"Failed to promote admin on startup: {e}")
     except Exception as e:
-        logger.warning(f"Database initialization check: {e}")
+        logger.error(f"Database initialization check failed during create_all: {e}", exc_info=True)
+
+    # Safe column additions if tables were created previously
+    try:
+        from app.db.session import is_sqlite
+        async with engine.begin() as conn:
+            if not is_sqlite:
+                await conn.execute(text("ALTER TABLE users ADD COLUMN IF NOT EXISTS recovery_email VARCHAR(320)"))
+                await conn.execute(text("ALTER TABLE users ADD COLUMN IF NOT EXISTS recovery_email_verified_at TIMESTAMP WITH TIME ZONE"))
+                await conn.execute(text("ALTER TABLE password_reset_otps ADD COLUMN IF NOT EXISTS stage VARCHAR(30) DEFAULT 'email_submitted'"))
+                await conn.execute(text("ALTER TABLE password_reset_otps ADD COLUMN IF NOT EXISTS recovery_attempt_count INTEGER DEFAULT 0"))
+            else:
+                table_info = await conn.execute(text("PRAGMA table_info(users)"))
+                user_cols = {row[1] for row in table_info.fetchall()}
+                if "recovery_email" not in user_cols:
+                    await conn.execute(text("ALTER TABLE users ADD COLUMN recovery_email VARCHAR(320)"))
+                if "recovery_email_verified_at" not in user_cols:
+                    await conn.execute(text("ALTER TABLE users ADD COLUMN recovery_email_verified_at TIMESTAMP"))
+
+                otp_info = await conn.execute(text("PRAGMA table_info(password_reset_otps)"))
+                otp_cols = {row[1] for row in otp_info.fetchall()}
+                if "stage" not in otp_cols:
+                    await conn.execute(text("ALTER TABLE password_reset_otps ADD COLUMN stage VARCHAR(30) DEFAULT 'email_submitted'"))
+                if "recovery_attempt_count" not in otp_cols:
+                    await conn.execute(text("ALTER TABLE password_reset_otps ADD COLUMN recovery_attempt_count INTEGER DEFAULT 0"))
+    except Exception as e:
+        logger.warning(f"Database column schema check note: {e}")
+
+    # Temporary: Reset all existing events to registration closed
+    try:
+        async with engine.begin() as conn:
+            await conn.execute(text("UPDATE events SET registration_open = false"))
+    except Exception:
+        pass
+
+    try:
+        await _seed_default_events()
+    except Exception as e:
+        logger.warning(f"Database seeding check: {e}")
+
+    # TEMPORARY: Promote specific user to admin on startup
+    try:
+        import sys
+        import os
+        sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        from make_admin import promote_to_admin
+        target_admin = getattr(settings, "admin_id", None) or "raghavagarwal.230108@gmail.com"
+        target_pw = getattr(settings, "admin_password", None) or "Admin123"
+        await promote_to_admin(target_admin, target_pw)
+    except Exception as e:
+        logger.error(f"Failed to promote admin on startup: {e}")
 
     logger.info(f"Frontend URL: {settings.frontend_url}")
     logger.info(f"Backend URL: {settings.backend_url}")

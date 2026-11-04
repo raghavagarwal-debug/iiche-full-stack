@@ -4,9 +4,12 @@ Per Section 4.4–4.5: secure OTP lifecycle with attempt counting and rate limit
 Extended for recovery-email-verified flow (Section 7 of recovery spec).
 """
 
+from __future__ import annotations
+
 import logging
 import hmac
 from datetime import datetime, timedelta, timezone
+from typing import Optional
 
 from sqlalchemy import delete, select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -59,7 +62,7 @@ class OTPService:
         return session_token
 
     @staticmethod
-    async def _get_session_record(db: AsyncSession, reset_session_token: str) -> PasswordResetOTP | None:
+    async def _get_session_record(db: AsyncSession, reset_session_token: str) -> Optional[PasswordResetOTP]:
         """Look up a valid (unused, not expired) session by its token hash."""
         token_hash = hash_session_token(reset_session_token)
         stmt = select(PasswordResetOTP).where(

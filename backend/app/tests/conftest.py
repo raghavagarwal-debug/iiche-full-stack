@@ -46,6 +46,7 @@ async def client(db_session: AsyncSession, monkeypatch):
     """FastAPI AsyncClient configured with test database dependency override and console email."""
     from app.core.config import settings
     monkeypatch.setattr(settings, "email_provider", "console")
+    monkeypatch.setattr("app.db.session.async_session_factory", TestingSessionLocal)
 
     async def override_get_db():
         yield db_session

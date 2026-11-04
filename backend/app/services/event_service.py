@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 from datetime import datetime, timezone
+from typing import Optional
 from uuid import UUID
 
 from sqlalchemy import func, or_, select
@@ -101,7 +104,7 @@ class EventService:
         return [(row[0], row[1]) for row in result.all()]
 
     @staticmethod
-    async def get_event_with_count(db: AsyncSession, event_id: UUID) -> tuple[Event, int] | None:
+    async def get_event_with_count(db: AsyncSession, event_id: UUID) -> Optional[tuple[Event, int]]:
         """Get single event with registrant_count."""
         stmt = (
             select(Event, func.count(Registration.id).label("registrant_count"))
@@ -116,13 +119,13 @@ class EventService:
         return (row[0], row[1])
 
     @staticmethod
-    async def get_event(db: AsyncSession, event_id: UUID) -> Event | None:
+    async def get_event(db: AsyncSession, event_id: UUID) -> Optional[Event]:
         """Get a single event by ID."""
         result = await db.execute(select(Event).where(Event.id == event_id))
         return result.scalar_one_or_none()
 
     @staticmethod
-    async def create_event(db: AsyncSession, data: EventCreate, created_by_id: UUID | None = None) -> Event:
+    async def create_event(db: AsyncSession, data: EventCreate, created_by_id: Optional[UUID] = None) -> Event:
         """Admin: create a new event."""
         payload = data.model_dump()
         status_val = payload.get("status")

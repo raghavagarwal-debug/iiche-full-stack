@@ -3,7 +3,10 @@ FastAPI dependency injection — database sessions, authentication, authorizatio
 Per Section 20.1: backend is the source of truth for authentication and authorization.
 """
 
+from __future__ import annotations
+
 from datetime import datetime, timezone
+from typing import Optional
 
 from fastapi import Cookie, Depends, HTTPException, Request, status
 from sqlalchemy import select
@@ -26,7 +29,7 @@ async def get_db():
 
 async def get_current_user(
     request: Request,
-    session_token_cookie: str | None = Cookie(None, alias="session_token"),
+    session_token_cookie: Optional[str] = Cookie(None, alias="session_token"),
     db: AsyncSession = Depends(get_db),
 ) -> User:
     """
@@ -86,9 +89,9 @@ async def get_current_user(
 
 async def get_current_user_optional(
     request: Request,
-    session_token_cookie: str | None = Cookie(None, alias="session_token"),
+    session_token_cookie: Optional[str] = Cookie(None, alias="session_token"),
     db: AsyncSession = Depends(get_db),
-) -> User | None:
+) -> Optional[User]:
     """
     Like get_current_user but returns None instead of raising 401.
     Used for endpoints that behave differently for authenticated vs anonymous users.

@@ -2,7 +2,10 @@
 Event request/response schemas.
 """
 
+from __future__ import annotations
+
 from datetime import datetime
+from typing import Optional
 from uuid import UUID
 
 from pydantic import BaseModel, Field, field_validator
@@ -11,20 +14,20 @@ from pydantic import BaseModel, Field, field_validator
 class EventResponse(BaseModel):
     id: UUID
     title: str = Field(max_length=500)
-    description: str | None = Field(None, max_length=10000)
+    description: Optional[str] = Field(None, max_length=10000)
     event_date: datetime
-    registration_deadline: datetime | None = None
-    venue: str | None = Field(None, max_length=500)
-    capacity: int | None = None
+    registration_deadline: Optional[datetime] = None
+    venue: Optional[str] = Field(None, max_length=500)
+    capacity: Optional[int] = None
     is_active: bool
     status: str = "draft"
     registration_open: bool = False
     registration_status: str = "coming_soon"  # computed: coming_soon | open | closed
     registrant_count: int = 0
-    created_by: UUID | None = None
-    banner_image_url: str | None = Field(None, max_length=2048)
-    organizer: str | None = Field(None, max_length=255)
-    event_category: str | None = Field(None, max_length=100)
+    created_by: Optional[UUID] = None
+    banner_image_url: Optional[str] = Field(None, max_length=2048)
+    organizer: Optional[str] = Field(None, max_length=255)
+    event_category: Optional[str] = Field(None, max_length=100)
     created_at: datetime
     updated_at: datetime
 
@@ -33,17 +36,17 @@ class EventResponse(BaseModel):
 
 class EventCreate(BaseModel):
     title: str
-    description: str | None = None
+    description: Optional[str] = None
     event_date: datetime
-    registration_deadline: datetime | None = None
-    venue: str | None = None
-    capacity: int | None = None
+    registration_deadline: Optional[datetime] = None
+    venue: Optional[str] = None
+    capacity: Optional[int] = None
     is_active: bool = True
-    status: str | None = None  # draft | published
+    status: Optional[str] = None  # draft | published
     registration_open: bool = False
-    banner_image_url: str | None = None
-    organizer: str | None = None
-    event_category: str | None = None
+    banner_image_url: Optional[str] = None
+    organizer: Optional[str] = None
+    event_category: Optional[str] = None
 
     @field_validator("title")
     @classmethod
@@ -55,14 +58,14 @@ class EventCreate(BaseModel):
 
     @field_validator("capacity")
     @classmethod
-    def capacity_positive(cls, v: int | None) -> int | None:
+    def capacity_positive(cls, v: Optional[int]) -> Optional[int]:
         if v is not None and v < 1:
             raise ValueError("Capacity must be at least 1")
         return v
 
     @field_validator("status")
     @classmethod
-    def status_valid(cls, v: str | None) -> str | None:
+    def status_valid(cls, v: Optional[str]) -> Optional[str]:
         if v is None:
             return v
         v = v.strip().lower()
@@ -72,22 +75,22 @@ class EventCreate(BaseModel):
 
 
 class EventUpdate(BaseModel):
-    title: str | None = Field(None, max_length=500)
-    description: str | None = Field(None, max_length=10000)
-    event_date: datetime | None = None
-    registration_deadline: datetime | None = None
-    venue: str | None = Field(None, max_length=500)
-    capacity: int | None = None
-    is_active: bool | None = None
-    status: str | None = None
-    registration_open: bool | None = None
-    banner_image_url: str | None = Field(None, max_length=2048)
-    organizer: str | None = Field(None, max_length=255)
-    event_category: str | None = Field(None, max_length=100)
+    title: Optional[str] = Field(None, max_length=500)
+    description: Optional[str] = Field(None, max_length=10000)
+    event_date: Optional[datetime] = None
+    registration_deadline: Optional[datetime] = None
+    venue: Optional[str] = Field(None, max_length=500)
+    capacity: Optional[int] = None
+    is_active: Optional[bool] = None
+    status: Optional[str] = None
+    registration_open: Optional[bool] = None
+    banner_image_url: Optional[str] = Field(None, max_length=2048)
+    organizer: Optional[str] = Field(None, max_length=255)
+    event_category: Optional[str] = Field(None, max_length=100)
 
     @field_validator("title")
     @classmethod
-    def update_title_not_empty(cls, v: str | None) -> str | None:
+    def update_title_not_empty(cls, v: Optional[str]) -> Optional[str]:
         if v is not None:
             v = v.strip()
             if not v:
@@ -96,14 +99,14 @@ class EventUpdate(BaseModel):
 
     @field_validator("capacity")
     @classmethod
-    def update_capacity_positive(cls, v: int | None) -> int | None:
+    def update_capacity_positive(cls, v: Optional[int]) -> Optional[int]:
         if v is not None and v < 1:
             raise ValueError("Capacity must be at least 1")
         return v
 
     @field_validator("status")
     @classmethod
-    def update_status_valid(cls, v: str | None) -> str | None:
+    def update_status_valid(cls, v: Optional[str]) -> Optional[str]:
         if v is not None:
             v = v.strip().lower()
             if v not in ("draft", "published"):

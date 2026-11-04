@@ -2,7 +2,10 @@
 Registration response schemas.
 """
 
+from __future__ import annotations
+
 from datetime import datetime
+from typing import Optional
 from uuid import UUID
 
 from pydantic import BaseModel
@@ -26,7 +29,7 @@ class RegistrationWithEventResponse(BaseModel):
     registered_at: datetime
     event_title: str
     event_date: datetime
-    venue: str | None = None
+    venue: Optional[str] = None
 
 
 class AdminRegistrationResponse(BaseModel):

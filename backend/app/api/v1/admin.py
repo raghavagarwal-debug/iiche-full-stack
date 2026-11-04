@@ -3,8 +3,11 @@ Admin API routes — Section 8.
 All endpoints require admin role, checked server-side via require_admin dependency.
 """
 
+from __future__ import annotations
+
 import csv
 import io
+from typing import Optional
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
@@ -239,8 +242,8 @@ async def get_admin_stats(
 async def list_all_users(
     skip: int = Query(0, ge=0),
     limit: int = Query(100, ge=1, le=500),
-    search: str | None = Query(None, description="Search by name or email"),
-    role: str | None = Query(None, description="Filter by user role ('user' or 'admin')"),
+    search: Optional[str] = Query(None, description="Search by name or email"),
+    role: Optional[str] = Query(None, description="Filter by user role ('user' or 'admin')"),
     admin: User = Depends(require_admin),
     db: AsyncSession = Depends(get_db),
 ):

@@ -3,8 +3,11 @@ Password reset OTP model — Section 6 of the architecture spec.
 Stores hashed OTPs with expiry, usage, and attempt tracking.
 """
 
+from __future__ import annotations
+
 import uuid
 from datetime import datetime
+from typing import Optional
 
 from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, String, UUID, func
 from sqlalchemy.orm import Mapped, mapped_column
@@ -22,7 +25,7 @@ class PasswordResetOTP(Base):
         UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True
     )
     otp_hash: Mapped[str] = mapped_column(String(128), nullable=False)
-    reset_token_hash: Mapped[str | None] = mapped_column(
+    reset_token_hash: Mapped[Optional[str]] = mapped_column(
         String(128), unique=True, nullable=True
     )
     expires_at: Mapped[datetime] = mapped_column(

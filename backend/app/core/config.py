@@ -58,6 +58,10 @@ class Settings(BaseSettings):
     otp_resend_cooldown_seconds: int = 60
     otp_max_attempts: int = 5
 
+    # --- Admin Credentials ---
+    admin_id: str = "raghavagarwal.230108@gmail.com"
+    admin_password: str = "Admin123"
+
     # --- Rate Limiting ---
     rate_limit_login: str = "10/minute"
     rate_limit_password_reset: str = "5/minute"
@@ -103,6 +107,18 @@ class Settings(BaseSettings):
             self.database_url = self.database_url.replace("postgres://", "postgresql+asyncpg://", 1)
         elif self.database_url.startswith("postgresql://") and "asyncpg" not in self.database_url:
             self.database_url = self.database_url.replace("postgresql://", "postgresql+asyncpg://", 1)
+
+        # Fix unencoded '@' in password if present in postgresql URLs
+        if "postgresql" in self.database_url and "://" in self.database_url:
+            prefix, remainder = self.database_url.split("://", 1)
+            parts = remainder.split("@")
+            if len(parts) > 2:
+                host_part = parts[-1]
+                user_pass = "@".join(parts[:-1])
+                if ":" in user_pass:
+                    from urllib.parse import quote_plus
+                    user, pwd = user_pass.split(":", 1)
+                    self.database_url = f"{prefix}://{user}:{quote_plus(pwd)}@{host_part}"
 
         return self
 

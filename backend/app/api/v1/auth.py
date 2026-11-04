@@ -3,8 +3,11 @@ Auth API routes — Section 9: signup, login, logout, /me, forgot password, Goog
 Routers are thin — business logic lives in services/.
 """
 
+from __future__ import annotations
+
 import logging
 import hmac
+from typing import Optional
 
 from fastapi import APIRouter, Cookie, Depends, HTTPException, Request, Response, status
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -117,7 +120,7 @@ async def login(
 @router.post("/logout", response_model=MessageResponse, dependencies=[Depends(verify_csrf)])
 async def logout(
     response: Response,
-    session_token: str | None = Cookie(None, alias="session_token"),
+    session_token: Optional[str] = Cookie(None, alias="session_token"),
     db: AsyncSession = Depends(get_db),
 ):
     """
@@ -351,7 +354,10 @@ async def resend_otp(
 
 def _get_frontend_redirect_url(request: Request, path: str = "/pages/events.html?auth=success") -> str:
     """Build redirects only from the configured frontend origin."""
-    return f"{settings.frontend_url}{path}"
+    base = settings.frontend_url.rstrip("/")
+    if not path.startswith("/"):
+        path = f"/{path}"
+    return f"{base}{path}"
 
 
 # --- Google OAuth ---
@@ -397,7 +403,7 @@ async def google_login(
             path="/",
         )
 
-        target_url = _get_frontend_redirect_url(request, "/pages/events.html?auth=success")
+        target_url = _get_frontend_redirect_url(request, f"/pages/events.html?auth=success&token={token}")
         response.status_code = status.HTTP_307_TEMPORARY_REDIRECT
         response.headers["Location"] = target_url
         return response
@@ -444,11 +450,12 @@ async def google_callback(
 
     try:
         user, token = await GoogleAuthService.handle_callback(db, code)
-    except ValueError as e:
-        logger.error(f"Google OAuth error: {e}")
+    except Exception as e:
+        logger.error(f"Google OAuth error: {e}", exc_info=True)
         # Redirect to frontend with error
+        redirect_base = settings.frontend_url.rstrip("/")
         response.status_code = status.HTTP_307_TEMPORARY_REDIRECT
-        response.headers["Location"] = f"{settings.frontend_url}/pages/login.html?error=google_auth_failed"
+        response.headers["Location"] = f"{redirect_base}/pages/login.html?error=google_auth_failed"
         return response
 
     # Set session cookie

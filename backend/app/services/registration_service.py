@@ -3,7 +3,10 @@ Registration service — concurrency-safe event registration.
 Per Section 7: transaction-safe, capacity-checked, duplicate-prevented at DB level.
 """
 
+from __future__ import annotations
+
 from datetime import datetime, timezone
+from typing import Optional
 from uuid import UUID
 
 from sqlalchemy import func, select
@@ -155,7 +158,7 @@ class RegistrationService:
         ]
 
     @staticmethod
-    async def check_user_registration(db: AsyncSession, user_id: UUID, event_id: UUID) -> Registration | None:
+    async def check_user_registration(db: AsyncSession, user_id: UUID, event_id: UUID) -> Optional[Registration]:
         """Check if a user is registered for a specific event."""
         result = await db.execute(
             select(Registration).where(

@@ -4,7 +4,10 @@ Per Section 12: rate limiting on auth and password-reset endpoints.
 Uses atomic INCR-first pattern to prevent TOCTOU race conditions under high concurrency.
 """
 
+from __future__ import annotations
+
 import logging
+from typing import Optional
 
 import redis.asyncio as redis
 from fastapi import HTTPException, status
@@ -14,7 +17,7 @@ from app.core.config import settings
 logger = logging.getLogger(__name__)
 
 # Global Redis connection (initialized on app startup)
-redis_client: redis.Redis | None = None
+redis_client: Optional[redis.Redis] = None
 
 
 async def init_redis() -> None:

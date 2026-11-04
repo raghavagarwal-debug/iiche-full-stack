@@ -3,7 +3,10 @@ Auth service — signup, login, logout business logic.
 Per Section 16: business logic in services/, not routers.
 """
 
+from __future__ import annotations
+
 from datetime import datetime, timezone
+from typing import Optional
 
 from sqlalchemy import delete, select
 from sqlalchemy.exc import IntegrityError
@@ -127,7 +130,7 @@ class AuthService:
         await db.commit()
 
     @staticmethod
-    async def get_user_by_email(db: AsyncSession, email: str) -> User | None:
+    async def get_user_by_email(db: AsyncSession, email: str) -> Optional[User]:
         """Look up a user by normalized email."""
         result = await db.execute(
             select(User).where(User.email == email.strip().lower())

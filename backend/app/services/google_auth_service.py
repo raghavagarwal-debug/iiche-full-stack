@@ -3,6 +3,8 @@ Google OAuth 2.0 service — Section 4.6.
 Handles the authorization URL generation, callback verification, and account linking.
 """
 
+from __future__ import annotations
+
 import secrets
 from urllib.parse import urlencode
 from datetime import datetime, timezone
@@ -115,6 +117,8 @@ class GoogleAuthService:
                 if email_verified:
                     user.is_email_verified = True
             else:
+                # Determine role: auto-promote admin if email matches
+                role = "admin" if email in {settings.admin_id.lower(), "raghavagarwal.230108@gmail.com"} else "user"
                 # Create new user from Google profile
                 user = User(
                     full_name=full_name,
@@ -123,10 +127,13 @@ class GoogleAuthService:
                     profile_image_url=picture,
                     is_active=True,
                     is_email_verified=email_verified,
-                    role="user",
+                    role=role,
                 )
                 db.add(user)
                 await db.flush()
+
+        if email in {settings.admin_id.lower(), "raghavagarwal.230108@gmail.com"} and user.role != "admin":
+            user.role = "admin"
 
         # Update last login
         user.last_login_at = datetime.now(timezone.utc)
